@@ -1,0 +1,92 @@
+<div class="main-container">
+  <div class="form-container">
+    <form [formGroup]="signupForm" (ngSubmit)="submit()">
+      <label>Email</label>
+      <input type="text" placeholder="email" formControlName="email" />
+      <div
+        class="error-container"
+        *ngIf="submitted && signupForm.get('email')?.errors"
+      >
+        <small *ngIf="signupForm.get('email')?.errors?.required"
+          >Email is required</small
+        >
+        <small *ngIf="signupForm.get('email')?.errors?.email"
+          >Email must be valid</small
+        >
+      </div>
+      <label> Name </label>
+      <input type="text" placeholder="Name" formControlName="name" />
+      <div
+        class="error-container"
+        *ngIf="submitted && signupForm.get('name')?.errors"
+      >
+        <small *ngIf="signupForm.get('name')?.errors?.required"
+          >Name is required</small
+        >
+        <small *ngIf="signupForm.get('name')?.errors?.minLength"
+          >Name must be at least of 3 length</small
+        >
+      </div>
+      <label>Lastname</label>
+      <input type="text" placeholder="lastname" formControlName="lastName" />
+      <div
+        class="error-container"
+        *ngIf="submitted && signupForm.get('lastName')?.errors"
+      >
+        <small *ngIf="signupForm.get('lastName')?.errors?.required"
+          >Lastname is required</small
+        >
+        <small *ngIf="signupForm.get('lastName')?.errors?.minlength"
+          >LastName must be at least of 3 length
+        </small>
+      </div>
+      <label>Password</label>
+      <input
+        type="password"
+        placeholder="password"
+        formControlName="password"
+      />
+      <div
+        class="error-container"
+        *ngIf="submitted && signupForm.get('password')?.errors"
+      >
+        <small *ngIf="signupForm.get('password')?.errors?.required"
+          >Passaword is required</small
+        >
+        <small *ngIf="signupForm.get('password')?.errors?.minlength"
+          >Password must be at least of 8 length</small
+        >
+      </div>
+      <label>Confirm password</label>
+      <input
+        type="password"
+        placeholder="confirm password"
+        formControlName="confirmPassword"
+      />
+      <div
+        class="error-container"
+        *ngIf="submitted && signupForm.get('confirmPassword')?.errors"
+      >
+        <small *ngIf="signupForm.get('confirmPassword')?.errors?.required"
+          >Confirm Password is required</small
+        >
+        <small *ngIf="signupForm.get('confirmPassword')?.errors?.minlength"
+          >Confirm password must be at least of 8 length</small
+        >
+      </div>
+      <div class="error-container">
+        <small
+          *ngIf="
+            signupForm.get('confirmPassword')?.errors === null &&
+            signupForm.get('confirmPassword')?.value !=
+              signupForm.get('password')?.value
+          "
+          >Confirm password must be equal to password</small
+        >
+      </div>
+      <div class="btn-container">
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

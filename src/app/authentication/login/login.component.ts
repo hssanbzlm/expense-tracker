@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.submitted = true;
-
     if (!this.loginForm.invalid) {
       console.log('success');
     }
