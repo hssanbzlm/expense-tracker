@@ -10,9 +10,10 @@ import {
 } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
+import { VerifemailComponent } from './verifemail/verifemail.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent],
+  declarations: [LoginComponent, SignupComponent, VerifemailComponent],
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
