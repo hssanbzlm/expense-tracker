@@ -28,4 +28,8 @@ export class AuthService {
       }
     });
   }
+
+  verifEmail(codeVerif: string) {
+    return this.http.get(`${environment.authBaseUrl}/verifemail/${codeVerif}`);
+  }
 }
