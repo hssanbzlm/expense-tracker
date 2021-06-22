@@ -11,9 +11,10 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { VerifemailComponent } from './verifemail/verifemail.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, VerifemailComponent],
+  declarations: [LoginComponent, SignupComponent, VerifemailComponent, ResetPasswordComponent],
   imports: [
     CommonModule,
     AuthenticationRoutingModule,

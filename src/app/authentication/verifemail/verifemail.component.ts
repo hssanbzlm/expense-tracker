@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscriber, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
@@ -7,7 +8,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './verifemail.component.html',
   styleUrls: ['./verifemail.component.scss'],
 })
-export class VerifemailComponent implements OnInit {
+export class VerifemailComponent implements OnInit, OnDestroy {
+  private sub: Subscription;
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
@@ -20,9 +22,12 @@ export class VerifemailComponent implements OnInit {
   }
 
   verifEmail(codeVerif: string) {
-    this.authService.verifEmail(codeVerif).subscribe(
+    this.sub = this.authService.verifEmail(codeVerif).subscribe(
       (v) => this.router.navigateByUrl('login'),
       (err) => this.router.navigateByUrl('login')
     );
+  }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }
