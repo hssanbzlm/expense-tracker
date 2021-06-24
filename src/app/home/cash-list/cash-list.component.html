@@ -1,0 +1,9 @@
+<div *ngIf="dataSource">
+  <div *ngFor="let item of dataSource | async" class="cash-list-container">
+    <app-cash
+      [search]="search"
+      (selectedCash)="selectedCash($event)"
+      [cash]="item"
+    ></app-cash>
+  </div>
+</div>

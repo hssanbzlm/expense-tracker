@@ -1,0 +1,52 @@
+<div class="cash-edit-form-container">
+  <form #f="ngForm" (ngSubmit)="saveCash()">
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input
+        matInput
+        name="date"
+        [matDatepicker]="picker"
+        [(ngModel)]="currentCash.date"
+        required
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <div class="amount-container">
+      <label for="amount">Amount</label>
+      <input
+        name="amount"
+        type="number"
+        placeholder="amount"
+        [(ngModel)]="currentCash.amount"
+        min="1"
+        required
+        #amount="ngModel"
+      />
+      <small *ngIf="amount.invalid && (amount.touched || amount.dirty)">
+        Invalid amount</small
+      >
+    </div>
+    <div class="remark-container">
+      <label for="remark">Remark</label>
+      <input
+        type="text"
+        placeholder="remark"
+        name="remark"
+        [(ngModel)]="currentCash.remark"
+        required
+        #remark="ngModel"
+      />
+      <small *ngIf="remark.invalid && (remark.touched || remark.dirty)">
+        Remark is required
+      </small>
+    </div>
+    <div class="cash-in-out-container">
+      <input type="radio" name="in" [value]="1" [(ngModel)]="currentCash.in" />
+      <label for="chash-in"> In </label>
+      <input type="radio" name="in" [value]="-1" [(ngModel)]="currentCash.in" />
+      <label for="cash-out"> Out</label>
+    </div>
+    <button [disabled]="f.invalid" type="submit">Save</button>
+  </form>
+</div>

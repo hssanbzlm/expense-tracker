@@ -1,0 +1,36 @@
+.search-cash-list-container {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: seagreen;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  background-color: red;
+}
+
+.cash-edit-container {
+  background-color: orchid;
+  width: auto;
+  height: auto;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+@media screen and (max-width:500px) {
+
+  .home-container {
+    flex-direction: column;
+  }
+
+}

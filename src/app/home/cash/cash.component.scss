@@ -1,0 +1,18 @@
+.cash-container {
+
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 50px;
+  margin-bottom: 5px;
+  background-color: rgb(35, 77, 116);
+  cursor: pointer;
+}
+
+.cash-in {
+  color: green;
+}
+
+.cash-out {
+  color: red;
+}

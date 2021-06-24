@@ -1,0 +1,65 @@
+.cash-edit-form-container {
+
+  max-width: 500px;
+  height: auto;
+  border-radius: 20px;
+  background-color: hotpink;
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input[type=text],
+    input[type=number] {
+      height: 30px;
+      width: 100px;
+      border: 1px solid lightgrey;
+      border-radius: 30px;
+      margin-top: 8px;
+      padding: 5px 22px;
+      font-size: 17px;
+      outline: none;
+    }
+
+    button {
+      height: 32px;
+      width: 110px;
+      border: none;
+      background-color: rgb(240, 238, 238);
+      margin: 20px 3px;
+      letter-spacing: 0.1px;
+      color: rgb(97, 96, 96);
+      cursor: pointer;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    button:hover {
+      box-shadow: 1px 3px 5px lightgray;
+      position: relative;
+      top: -2.5px;
+
+    }
+
+    .amount-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .remark-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cash-in-out-container {
+      display: flex;
+    }
+
+    .date-container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

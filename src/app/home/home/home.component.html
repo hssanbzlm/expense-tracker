@@ -1,1 +1,13 @@
-<p>home works!</p>
+<app-navbar></app-navbar>
+<div class="home-container">
+  <div class="search-cash-list-container">
+    <app-search (searchEmitter)="getSearch($event)"></app-search>
+    <app-cash-list
+      [search]="search"
+      (selected)="getSelectedCash($event)"
+    ></app-cash-list>
+  </div>
+  <div class="cash-edit-container">
+    <app-cash-edit [cash]="cash"></app-cash-edit>
+  </div>
+</div>
