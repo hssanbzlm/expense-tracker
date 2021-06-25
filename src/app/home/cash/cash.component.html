@@ -1,7 +1,7 @@
 <div
   *ngIf="search.trim().length == 0 || cash.remark.includes(search)"
   class="cash-container"
-  (click)="selectCash()"
+  (click)="selectCash($event)"
 >
   <p
     [ngClass]="cash.in == 1 ? 'cash-in' : 'cash-out'"
@@ -15,4 +15,9 @@
   <p style="min-width: 100px; text-align: center">
     {{ cash.date | date }}
   </p>
+
+  <p style="min-width: 100px; text-align: center">
+    {{ cash.balance }}
+  </p>
+  <p (click)="deleteCash($event)" style="color: red">X</p>
 </div>

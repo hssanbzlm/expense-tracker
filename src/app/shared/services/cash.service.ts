@@ -1,53 +1,34 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { cash } from '../Interfaces/cash';
-
+import { CashBook } from '../Interfaces/CashBook';
+import { HttpRequestsService } from './http-requests.service';
+import { calculateBalance } from '../utility';
+import { sortFunction } from '../utility';
 @Injectable({
   providedIn: 'root',
 })
 export class CashService {
-  private dataSource: cash[] = [
-    {
-      id: 1,
-      date: new Date('02-10-2021'),
-      remark: 'ffdfgfdg',
-      amount: 400,
-      in: 1,
-    },
-    {
-      id: 2,
-      date: new Date('2-5-2019'),
-      remark: 'remark',
-      amount: 80,
-      in: -1,
-    },
-    {
-      id: 3,
-      date: new Date('02-08-2018'),
-      remark: 'lorem third remark',
-      amount: 43,
-      in: 1,
-    },
-    {
-      id: 4,
-      date: new Date('02-04-2018'),
-      remark:
-        'lorem third remark kjdhfkjh dfjdfhjdkgf dfhdfkjh dfdhf dfhf kdfhkfdhs',
-      amount: 150,
-      in: -1,
-    },
-  ];
+  private data: cash[] = [];
+  private dataSubject: BehaviorSubject<cash[]> = new BehaviorSubject([]);
+  constructor(private httpRequests: HttpRequestsService) {}
 
-  dataSubject = new BehaviorSubject<cash[]>(
-    this.dataSource.sort(this.sortFunction)
-  );
-  constructor() {}
+  getCashBook() {
+    return this.httpRequests.getExpenses();
+  }
 
-  getCash() {
+  treatData(expense: CashBook) {
+    this.data = expense.expenses.sort(sortFunction);
+    this.data = calculateBalance(this.data);
+    this.dataSubject.next(this.data);
+  }
+
+  getSubjectData() {
     return this.dataSubject;
   }
   saveCash(cash: cash) {
-    let index = this.dataSource.findIndex((v) => v.id == cash.id);
+    let index = this.data.findIndex((v) => v._id == cash._id);
     if (index >= 0) {
       this.updateCash(index, cash); // index exist, so we have to updated it
     } else {
@@ -56,22 +37,51 @@ export class CashService {
   }
 
   updateCash(index: number, cash: cash) {
-    this.dataSource[index] = cash;
-    this.dataSource = this.dataSource.sort(this.sortFunction);
-    this.dataSubject.next(this.dataSource);
+    const updatedObject = {
+      _id: cash._id,
+      date: cash.date,
+      in: cash.in,
+      remark: cash.remark,
+      amount: cash.amount,
+    };
+
+    this.httpRequests.updateCash(updatedObject).subscribe(
+      (v) => {
+        console.log(v);
+        this.data[index] = v;
+        this.data = this.data.sort(sortFunction);
+        this.data = calculateBalance(this.data);
+        this.dataSubject.next(this.data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
   addCash(cash: cash) {
-    cash.id = Math.random();
-    let index = this.dataSource.findIndex((v) => v.date < cash.date);
-    if (index >= 0) {
-      this.dataSource.splice(index, 0, cash);
-    } else this.dataSource.push(cash);
-    this.dataSubject.next(this.dataSource);
+    this.httpRequests.addCash(cash).subscribe(
+      (cash) => {
+        let index = this.data.findIndex((v) => v.date < cash.date);
+        if (index >= 0) {
+          this.data.splice(index, 0, cash);
+        } else this.data.push(cash);
+        this.data = calculateBalance(this.data);
+        this.dataSubject.next(this.data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
-  sortFunction(a: cash, b: cash) {
-    if (b.date < a.date) return -1;
-    if (b.date > a.date) return 1;
-    return 0;
+  deleteCash(id: number) {
+    this.httpRequests.deleteCash(id).subscribe(
+      (v) => {
+        this.data = this.data.filter((v) => v._id != id);
+        this.data = calculateBalance(this.data);
+        this.dataSubject.next(this.data);
+      },
+      (err) => console.log('err')
+    );
   }
 }

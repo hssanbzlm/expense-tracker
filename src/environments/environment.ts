@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   authBaseUrl: 'http://localhost:3000/user',
+  cashBaseUrl: 'http://localhost:3000/expense',
 };
 
 /*

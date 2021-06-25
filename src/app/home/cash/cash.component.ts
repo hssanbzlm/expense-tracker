@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { cash } from 'src/app/shared/Interfaces/cash';
+import { CashService } from 'src/app/shared/services/cash.service';
 
 @Component({
   selector: 'app-cash',
@@ -7,7 +8,7 @@ import { cash } from 'src/app/shared/Interfaces/cash';
   styleUrls: ['./cash.component.scss'],
 })
 export class CashComponent implements OnInit {
-  constructor() {}
+  constructor(private cashService: CashService) {}
 
   ngOnInit(): void {}
 
@@ -16,7 +17,12 @@ export class CashComponent implements OnInit {
 
   @Output() selectedCash = new EventEmitter<cash>();
 
-  selectCash() {
+  selectCash(e) {
+    e.stopPropagation();
     this.selectedCash.emit(this.cash);
+  }
+  deleteCash(e) {
+    e.stopPropagation();
+    this.cashService.deleteCash(this.cash._id);
   }
 }

@@ -1,5 +1,5 @@
 export interface cash {
-  id: number;
+  _id?: number;
   date: Date;
   amount: number;
   remark: string;

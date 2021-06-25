@@ -13,14 +13,12 @@ export class CashEditComponent implements OnInit {
   constructor(private cashService: CashService) {}
   @Input() set cash(value: cash) {
     this.currentCash = Object.assign({}, value);
-    console.log(value);
   }
 
   ngOnInit(): void {}
   saveCash() {
     this.cashService.saveCash(this.currentCash);
     this.currentCash = {
-      id: null,
       amount: null,
       date: null,
       remark: '',
