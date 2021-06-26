@@ -17,7 +17,17 @@ export class CashEditComponent implements OnInit {
 
   ngOnInit(): void {}
   saveCash() {
-    this.cashService.saveCash(this.currentCash);
+    this.cashService.saveCash(this.currentCash).subscribe(
+      (v) => {
+        this.cashService.handleSaveCashResult(v);
+      },
+      (err) => console.log(err)
+    );
+
+    this.resetCash();
+  }
+
+  resetCash() {
     this.currentCash = {
       amount: null,
       date: null,
