@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
     CashEditComponent,
     CashComponent,
     NavbarComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,
