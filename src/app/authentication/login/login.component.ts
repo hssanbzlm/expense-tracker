@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   submit() {
+    console.log('hello');
     this.submitted = true;
     if (!this.loginForm.invalid) {
       this.sub = this.authService.signin(this.loginForm.value).subscribe(
@@ -37,7 +38,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       );
     }
   }
+  redirectToResetPassword() { 
+    this.router.navigateByUrl('user/resetpassword')
+  }
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
