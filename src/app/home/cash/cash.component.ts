@@ -41,7 +41,10 @@ export class CashComponent implements OnInit, OnDestroy {
     e.stopPropagation();
     this.sub = this.modalService.open(this.modalContainer).subscribe((v) => {
       if (v === 'confirm') {
-        this.cashService.deleteCash(this.cash._id);
+        this.cashService.deleteCash(this.cash._id).subscribe(() => {
+          //to refactor =>sub inside sub !!
+          this.cashService.handleDeleteCash(this.cash._id);
+        });
       }
     });
   }

@@ -62,15 +62,14 @@ export class CashService {
   }
 
   deleteCash(id: number) {
-    this.httpRequests.deleteCash(id).subscribe(
-      (v) => {
-        this.data = this.data.filter((v) => v._id != id);
-        if (this.data.length > 0) {
-          this.data = calculateBalance(this.data.length, this.data);
-        }
-        this.dataSubject.next(this.data);
-      },
-      (err) => console.log('err')
-    );
+    return this.httpRequests.deleteCash(id);
+  }
+
+  handleDeleteCash(idDeleted: number) {
+    this.data = this.data.filter((v) => v._id != idDeleted);
+    if (this.data.length > 0) {
+      this.data = calculateBalance(this.data.length, this.data);
+    }
+    this.dataSubject.next(this.data);
   }
 }

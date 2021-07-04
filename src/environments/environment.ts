@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  authBaseUrl: 'http://localhost:3000/user',
+  userBaseUrl: 'http://localhost:3000/user',
   cashBaseUrl: 'http://localhost:3000/expense',
+  settingBaseUrl: 'http://localhost:3000/setting',
 };
 
 /*

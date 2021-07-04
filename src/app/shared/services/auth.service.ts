@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { observable, Observable } from 'rxjs';
+
+import { Observable } from 'rxjs';
 import { Token } from '../Interfaces/token';
 import jwt_decode from 'jwt-decode';
+import { HttpRequestsService } from './http-requests.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private httpRequestService: HttpRequestsService) {}
 
   signup(auth: object) {
-    return this.http.post(`${environment.authBaseUrl}/signup`, auth);
+    return this.httpRequestService.signup(auth);
   }
   signin(auth: object): Observable<Token> {
-    return this.http.post<Token>(`${environment.authBaseUrl}/login`, auth);
+    return this.httpRequestService.signin(auth);
+  }
+  verifEmail(codeVerif: string) {
+    return this.httpRequestService.verifEmail(codeVerif);
   }
 
   decodeToken() {
@@ -27,9 +30,5 @@ export class AuthService {
         reject(err);
       }
     });
-  }
-
-  verifEmail(codeVerif: string) {
-    return this.http.get(`${environment.authBaseUrl}/verifemail/${codeVerif}`);
   }
 }

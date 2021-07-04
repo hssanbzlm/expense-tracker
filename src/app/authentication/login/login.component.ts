@@ -25,21 +25,19 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   submit() {
-    console.log('hello');
     this.submitted = true;
     if (!this.loginForm.invalid) {
       this.sub = this.authService.signin(this.loginForm.value).subscribe(
         (v: Token) => {
           localStorage.setItem('token', v.token);
-          this.authService.decodeToken();
           this.router.navigateByUrl('/home');
         },
         (err) => console.log(err)
       );
     }
   }
-  redirectToResetPassword() { 
-    this.router.navigateByUrl('user/resetpassword')
+  redirectToResetPassword() {
+    this.router.navigateByUrl('user/resetpassword');
   }
   ngOnDestroy(): void {
     if (this.sub) {

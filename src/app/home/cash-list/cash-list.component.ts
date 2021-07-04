@@ -6,11 +6,9 @@ import {
   Input,
   OnDestroy,
 } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { cash } from 'src/app/shared/Interfaces/cash';
-import { CashBook } from 'src/app/shared/Interfaces/CashBook';
 import { CashService } from 'src/app/shared/services/cash.service';
-import { HttpRequestsService } from 'src/app/shared/services/http-requests.service';
 
 @Component({
   selector: 'app-cash-list',
