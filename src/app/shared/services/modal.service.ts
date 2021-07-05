@@ -13,11 +13,17 @@ export class ModalService {
   private componentSubscriber: Subject<string> = new Subject<string>();
   constructor(private resolver: ComponentFactoryResolver) {}
 
-  open(componentContainer: ViewContainerRef) {
+  open(
+    componentContainer: ViewContainerRef,
+    modalTitle: string,
+    modalBody: string
+  ) {
     let factory = this.resolver.resolveComponentFactory(ModalComponent);
     this.componentRef = componentContainer.createComponent(factory);
     this.componentRef.instance.closeme.subscribe(() => this.closeMe());
     this.componentRef.instance.confirmme.subscribe(() => this.confirm());
+    this.componentRef.instance.title = modalTitle;
+    this.componentRef.instance.body = modalBody;
     return this.componentSubscriber;
   }
 

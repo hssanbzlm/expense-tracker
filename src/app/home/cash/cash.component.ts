@@ -32,21 +32,33 @@ export class CashComponent implements OnInit, OnDestroy {
   @Input() cash: cash;
   @Input() search: string;
   @Output() selectedCash = new EventEmitter<cash>();
-
+  @Output() deletedId = new EventEmitter<number>(); // this id will be sent to cash-edit component to check if the deleted
+  //cash is same as the selected. if they are equal cash-edit will be reinitialized
   selectCash(e) {
     e.stopPropagation();
     this.selectedCash.emit(this.cash);
   }
   deleteCash(e) {
     e.stopPropagation();
-    this.sub = this.modalService.open(this.modalContainer).subscribe((v) => {
-      if (v === 'confirm') {
-        this.cashService.deleteCash(this.cash._id).subscribe(() => {
-          //to refactor =>sub inside sub !!
-          this.cashService.handleDeleteCash(this.cash._id);
-        });
-      }
-    });
+    this.sub = this.modalService
+      .open(
+        this.modalContainer,
+        'You are about to delete a cash',
+        'Are you sure ?'
+      )
+      .subscribe((v) => {
+        if (v === 'confirm') {
+          this.cashService.deleteCash(this.cash._id).subscribe(() => {
+            //to refactor =>sub inside sub !!
+            this.sendDeletedId();
+            this.cashService.handleDeleteCash(this.cash._id);
+          });
+        }
+      });
+  }
+
+  sendDeletedId() {
+    this.deletedId.emit(this.cash._id);
   }
   ngOnDestroy(): void {
     if (this.sub) this.sub.unsubscribe();

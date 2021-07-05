@@ -20,6 +20,8 @@ export class CashListComponent implements OnInit, OnDestroy {
   sub: Subscription;
   @Output() selected = new EventEmitter<cash>();
   @Input() search: string;
+  @Output() deletedId = new EventEmitter<number>(); // we get this from cash component when item deleted to be sent to cash-edit to check if the seleted cash
+  // and deleted cash are the same. if they are equal , cash-edit will be reinitialized
   constructor(private cashService: CashService) {}
 
   ngOnInit(): void {
@@ -37,5 +39,9 @@ export class CashListComponent implements OnInit, OnDestroy {
 
   selectedCash(cash: cash) {
     this.selected.emit(cash);
+  }
+
+  getDeletedId(id: number) {
+    this.deletedId.emit(id);
   }
 }

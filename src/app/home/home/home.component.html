@@ -5,9 +5,10 @@
     <app-cash-list
       [search]="search"
       (selected)="getSelectedCash($event)"
+      (deletedId)="getDeletedId($event)"
     ></app-cash-list>
   </div>
   <div class="cash-edit-container">
-    <app-cash-edit [cash]="cash"></app-cash-edit>
+    <app-cash-edit [deletedId]="deletedId" [cash]="cash"></app-cash-edit>
   </div>
 </div>

@@ -16,8 +16,6 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
 import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
@@ -40,8 +38,6 @@ import { ModalComponent } from './modal/modal.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatToolbarModule,
-    MatIconModule,
   ],
   providers: [
     {

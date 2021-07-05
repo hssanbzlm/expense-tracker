@@ -26,6 +26,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   codeFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
   submit: boolean = false;
+  errorMsg: string = '';
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -58,10 +59,15 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
           },
           (err) => {
             this.submit = false;
+            this.errorMsg = 'Email not found';
           }
         );
     }
   }
+  onInputFocus() {
+    this.errorMsg = '';
+  }
+
   onSubmitCodeForm() {
     if (this.codeFormGroup.valid) {
       this.submit = true;
@@ -75,6 +81,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
           },
           (err) => {
             this.submit = false;
+            this.errorMsg = 'Invalid code';
           }
         );
     }

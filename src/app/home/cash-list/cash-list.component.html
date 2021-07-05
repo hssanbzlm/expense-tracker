@@ -3,6 +3,7 @@
     <app-cash
       [search]="search"
       (selectedCash)="selectedCash($event)"
+      (deletedId)="getDeletedId($event)"
       [cash]="item"
     ></app-cash>
   </div>

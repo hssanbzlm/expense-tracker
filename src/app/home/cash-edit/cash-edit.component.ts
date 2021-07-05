@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { cash } from 'src/app/shared/Interfaces/cash';
 import { CashService } from 'src/app/shared/services/cash.service';
 
@@ -7,12 +13,19 @@ import { CashService } from 'src/app/shared/services/cash.service';
   templateUrl: './cash-edit.component.html',
   styleUrls: ['./cash-edit.component.scss'],
 })
-export class CashEditComponent implements OnInit {
+export class CashEditComponent implements OnInit, OnChanges {
   currentCash: cash;
   submit: boolean = false;
   constructor(private cashService: CashService) {}
   @Input() set cash(value: cash) {
     this.currentCash = Object.assign({}, value);
+  }
+  @Input() deletedId: number;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.deletedId === this.currentCash._id) {
+      this.resetCash();
+    }
   }
 
   ngOnInit(): void {}

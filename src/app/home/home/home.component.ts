@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
   constructor() {}
   cash: cash;
   search: string = '';
+  deletedId: number;
   ngOnInit(): void {}
 
   getSelectedCash(cash: cash) {
@@ -18,5 +19,8 @@ export class HomeComponent implements OnInit {
 
   getSearch(search) {
     this.search = search;
+  }
+  getDeletedId(id: number) {
+    this.deletedId = id;
   }
 }
