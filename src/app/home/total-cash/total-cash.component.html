@@ -1,1 +1,4 @@
-<p>total-cash works!</p>
+<div *ngIf="totalInOut | async as totalInOut">
+  <p>{{ totalInOut.in }}</p>
+  <p>{{ totalInOut.out }}</p>
+</div>

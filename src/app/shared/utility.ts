@@ -17,3 +17,13 @@ export function sortFunction(a: cash, b: cash) {
   if (b.date > a.date) return 1;
   return 0;
 }
+
+export function totalInOut(data: cash[]) {
+  const totalInOut = { in: 0, out: 0 };
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].in == 1) {
+      totalInOut.in += data[i].amount;
+    } else totalInOut.out += data[i].amount;
+  }
+  return totalInOut;
+}

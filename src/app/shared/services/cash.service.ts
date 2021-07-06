@@ -3,15 +3,20 @@ import { BehaviorSubject } from 'rxjs';
 import { cash } from '../Interfaces/cash';
 import { CashBook } from '../Interfaces/CashBook';
 import { HttpRequestsService } from './http-requests.service';
-import { calculateBalance } from '../utility';
+import { calculateBalance, totalInOut } from '../utility';
 import { sortFunction } from '../utility';
+import { TotalInOut } from '../Interfaces/TotalInOut';
 @Injectable({
   providedIn: 'root',
 })
 export class CashService {
   private indexSave: number = null;
   private data: cash[] = [];
-  private dataSubject: BehaviorSubject<cash[]> = new BehaviorSubject([]);
+  private dataSubject: BehaviorSubject<cash[]> = new BehaviorSubject(this.data);
+  private totalInOut: TotalInOut = { in: 0, out: 0 };
+  private totalInOutSubject: BehaviorSubject<TotalInOut> = new BehaviorSubject(
+    this.totalInOut
+  );
   constructor(private httpRequests: HttpRequestsService) {}
 
   getCashBook() {
@@ -22,8 +27,13 @@ export class CashService {
     if (expense.expenses.length > 0) {
       this.data = expense.expenses.sort(sortFunction);
       this.data = calculateBalance(this.data.length, this.data);
+      this.totalInOut = totalInOut(this.data);
     }
     this.dataSubject.next(this.data);
+    this.totalInOutSubject.next(this.totalInOut);
+  }
+  gettotalInOutData() {
+    return this.totalInOutSubject;
   }
 
   getSubjectData() {
@@ -46,9 +56,16 @@ export class CashService {
 
   updateCash(cash: cash) {
     this.data[this.indexSave] = cash;
-    this.data = this.data.sort(sortFunction);
+    this.data = this.data.sort(sortFunction); // we sort data in case user has updated the date
     this.data = calculateBalance(this.indexSave + 1, this.data);
-    this.dataSubject.next(this.data);
+    this.data = calculateBalance(
+      // we start calculate balance from new cash index
+      this.data.findIndex((c) => c._id == cash._id) + 1,
+      this.data
+    );
+
+    this.totalInOut = totalInOut(this.data);
+    this.totalInOutSubject.next(this.totalInOut);
   }
   addCash(cash: cash) {
     let index = this.data.findIndex((v) => v.date < cash.date);
@@ -59,6 +76,8 @@ export class CashService {
       this.data.push(cash);
       this.data = calculateBalance(this.data.length, this.data);
     }
+    this.totalInOut = totalInOut(this.data);
+    this.totalInOutSubject.next(this.totalInOut);
   }
 
   deleteCash(id: number) {
@@ -71,5 +90,7 @@ export class CashService {
       this.data = calculateBalance(this.data.length, this.data);
     }
     this.dataSubject.next(this.data);
+    this.totalInOut = totalInOut(this.data);
+    this.totalInOutSubject.next(this.totalInOut);
   }
 }
