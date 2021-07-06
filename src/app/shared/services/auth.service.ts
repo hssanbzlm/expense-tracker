@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { Observable } from 'rxjs';
 import { Token } from '../Interfaces/token';
 import jwt_decode from 'jwt-decode';
 import { HttpRequestsService } from './http-requests.service';
+import { DecodedToken } from '../Interfaces/DecodedToken';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +24,11 @@ export class AuthService {
   decodeToken() {
     return new Promise((resolve, reject) => {
       try {
-        const decoded = jwt_decode(localStorage.getItem('token'));
-        resolve(decoded);
+        const decoded: DecodedToken = jwt_decode(localStorage.getItem('token'));
+        if (decoded.exp * 1000 > Date.now())
+          //check if token is expired
+          resolve(decoded);
+        else reject('expired token');
       } catch (err) {
         reject(err);
       }
