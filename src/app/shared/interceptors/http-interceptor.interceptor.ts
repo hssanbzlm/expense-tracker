@@ -11,18 +11,22 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Http_Interceptor implements HttpInterceptor {
-  constructor() {
-    console.log('from interceptor');
-  }
+  constructor() {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const modifRequest = request.clone({
-      setHeaders: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-    });
+    if (request.url.split('/')[3] != 'user') {
+      // if url starts with /user we don't need to add token since the user at this point is not yet connected
+      const modifRequest = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
 
-    return next.handle(modifRequest);
+      return next.handle(modifRequest);
+    }
+    return next.handle(request);
   }
 }

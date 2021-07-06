@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home/home.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Http_Interceptor } from '../shared/interceptors/http-interceptor.interceptor';
 import { SearchComponent } from './search/search.component';
 import { CashListComponent } from './cash-list/cash-list.component';
 import { TotalCashComponent } from './total-cash/total-cash.component';
@@ -39,14 +37,6 @@ import { ModalComponent } from './modal/modal.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: Http_Interceptor,
-      multi: true,
-    },
-    MatNativeDateModule,
-    MatDatepickerModule,
-  ],
+  providers: [MatNativeDateModule, MatDatepickerModule],
 })
 export class HomeModule {}

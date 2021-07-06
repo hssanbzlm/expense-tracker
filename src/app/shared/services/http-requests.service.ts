@@ -10,36 +10,26 @@ import { Token } from '../Interfaces/token';
   providedIn: 'root',
 })
 export class HttpRequestsService {
-  header = new HttpHeaders().set(
-    'Authorization',
-    'Bearer ' + localStorage.getItem('token')
-  );
   constructor(private http: HttpClient) {}
 
   getExpenses(): Observable<CashBook> {
-    return this.http.get<CashBook>(`${environment.cashBaseUrl}/getexpenses`, {
-      headers: this.header,
-    });
+    return this.http.get<CashBook>(`${environment.cashBaseUrl}/getexpenses`);
   }
 
   updateCash(cash: cash): Observable<cash> {
     return this.http.put<cash>(
       `${environment.cashBaseUrl}/updateexpense`,
-      cash,
-      { headers: this.header }
+      cash
     );
   }
 
   addCash(cash: cash): Observable<cash> {
-    return this.http.post<cash>(`${environment.cashBaseUrl}/addexpense`, cash, {
-      headers: this.header,
-    });
+    return this.http.post<cash>(`${environment.cashBaseUrl}/addexpense`, cash);
   }
 
   deleteCash(id: number): Observable<cash> {
     return this.http.delete<cash>(
-      `${environment.cashBaseUrl}/deleteexpense/${id}`,
-      { headers: this.header }
+      `${environment.cashBaseUrl}/deleteexpense/${id}`
     );
   }
 
