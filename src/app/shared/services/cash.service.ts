@@ -10,13 +10,12 @@ import { TotalInOut } from '../Interfaces/TotalInOut';
   providedIn: 'root',
 })
 export class CashService {
-  private indexSave: number = null;
-  private data: cash[] = [];
-  private dataSubject: BehaviorSubject<cash[]> = new BehaviorSubject(this.data);
-  private totalInOut: TotalInOut = { in: 0, out: 0 };
-  private totalInOutSubject: BehaviorSubject<TotalInOut> = new BehaviorSubject(
-    this.totalInOut
-  );
+  private indexSave: number = null; //indexSave will hold index of added/updated cash to choose whether add cash (indexSave=null) or update cash (indexSave>=0)
+  private dataSubject: BehaviorSubject<cash[]> = new BehaviorSubject([]);
+  private totalInOutSubject: BehaviorSubject<TotalInOut> = new BehaviorSubject({
+    in: 0,
+    out: 0,
+  });
   constructor(private httpRequests: HttpRequestsService) {}
 
   getCashBook() {
@@ -24,13 +23,13 @@ export class CashService {
   }
 
   treatData(expense: CashBook) {
+    let cash = [];
     if (expense.expenses.length > 0) {
-      this.data = expense.expenses.sort(sortFunction);
-      this.data = calculateBalance(this.data.length, this.data);
-      this.totalInOut = totalInOut(this.data);
+      cash = [...expense.expenses];
+      cash.sort(sortFunction);
+      cash = calculateBalance(cash.length, cash);
     }
-    this.dataSubject.next(this.data);
-    this.totalInOutSubject.next(this.totalInOut);
+    this.sendUpdatesToSubscribers(cash, totalInOut(cash));
   }
   gettotalInOutData() {
     return this.totalInOutSubject;
@@ -40,11 +39,13 @@ export class CashService {
     return this.dataSubject;
   }
   saveCash(cash: cash) {
-    this.indexSave = this.data.findIndex((v) => v._id == cash._id);
+    this.indexSave = this.dataSubject
+      .getValue()
+      .findIndex((v) => v._id == cash._id);
     if (this.indexSave >= 0) {
-      return this.httpRequests.updateCash(cash); // index exist, so we have to update it
+      return this.httpRequests.updateCash(cash); // index exist, so we have to update cash
     } else {
-      return this.httpRequests.addCash(cash); // index does not exist, so we have to add it
+      return this.httpRequests.addCash(cash); // index does not exist, so we have to add new cash
     }
   }
 
@@ -55,29 +56,29 @@ export class CashService {
   }
 
   updateCash(cash: cash) {
-    this.data[this.indexSave] = cash;
-    this.data = this.data.sort(sortFunction); // we sort data in case user has updated the date
-    this.data = calculateBalance(this.indexSave + 1, this.data);
-    this.data = calculateBalance(
-      // we start calculate balance from new cash index
-      this.data.findIndex((c) => c._id == cash._id) + 1,
-      this.data
-    );
-
-    this.totalInOut = totalInOut(this.data);
-    this.totalInOutSubject.next(this.totalInOut);
+    let newCash = [];
+    newCash = this.dataSubject.getValue().map((v, index) => {
+      if (index == this.indexSave) {
+        v = cash;
+      }
+      return v;
+    });
+    newCash.sort(sortFunction); // we sort data in case user has updated the date
+    newCash = calculateBalance(newCash.length, newCash);
+    this.sendUpdatesToSubscribers(newCash, totalInOut(newCash));
   }
   addCash(cash: cash) {
-    let index = this.data.findIndex((v) => v.date < cash.date);
+    let newCash = [];
+    newCash = [...this.dataSubject.getValue()];
+    let index = newCash.findIndex((v) => v.date < cash.date);
     if (index >= 0) {
-      this.data.splice(index, 0, cash);
-      this.data = calculateBalance(index + 1, this.data);
+      newCash.splice(index, 0, cash);
+      newCash = calculateBalance(index + 1, newCash);
     } else {
-      this.data.push(cash);
-      this.data = calculateBalance(this.data.length, this.data);
+      newCash.push(cash);
+      newCash = calculateBalance(newCash.length, newCash);
     }
-    this.totalInOut = totalInOut(this.data);
-    this.totalInOutSubject.next(this.totalInOut);
+    this.sendUpdatesToSubscribers(newCash, totalInOut(newCash));
   }
 
   deleteCash(id: number) {
@@ -85,12 +86,17 @@ export class CashService {
   }
 
   handleDeleteCash(idDeleted: number) {
-    this.data = this.data.filter((v) => v._id != idDeleted);
-    if (this.data.length > 0) {
-      this.data = calculateBalance(this.data.length, this.data);
+    let newCash = [];
+
+    newCash = this.dataSubject.getValue().filter((v) => v._id != idDeleted);
+    if (newCash.length > 0) {
+      newCash = calculateBalance(newCash.length, newCash);
     }
-    this.dataSubject.next(this.data);
-    this.totalInOut = totalInOut(this.data);
-    this.totalInOutSubject.next(this.totalInOut);
+    this.sendUpdatesToSubscribers(newCash, totalInOut(newCash));
+  }
+
+  sendUpdatesToSubscribers(cash: cash[], totalInOut: TotalInOut) {
+    this.dataSubject.next(cash);
+    this.totalInOutSubject.next(totalInOut);
   }
 }

@@ -1,15 +1,17 @@
 import { cash } from './Interfaces/cash';
+import { TotalInOut } from './Interfaces/TotalInOut';
 
 export function calculateBalance(startingIndex, data: cash[]): cash[] {
+  let newCash = [...data];
   for (let i = startingIndex - 1; i >= 0; i--) {
-    if (i == data.length - 1) {
-      data[i].balance = data[i].amount * data[i].in;
+    if (i == newCash.length - 1) {
+      newCash[i].balance = newCash[i].amount * newCash[i].in;
     } else {
-      data[i].balance = data[i + 1].balance + data[i].amount * data[i].in;
+      newCash[i].balance =
+        newCash[i + 1].balance + newCash[i].amount * newCash[i].in;
     }
-    console.log('calculate index from ' + startingIndex);
   }
-  return data;
+  return newCash;
 }
 
 export function sortFunction(a: cash, b: cash) {
@@ -18,7 +20,7 @@ export function sortFunction(a: cash, b: cash) {
   return 0;
 }
 
-export function totalInOut(data: cash[]) {
+export function totalInOut(data: cash[]): TotalInOut {
   const totalInOut = { in: 0, out: 0 };
   for (let i = 0; i < data.length; i++) {
     if (data[i].in == 1) {

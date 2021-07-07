@@ -44,4 +44,7 @@ export class CashListComponent implements OnInit, OnDestroy {
   getDeletedId(id: number) {
     this.deletedId.emit(id);
   }
+  tracker(index, cash: cash) {
+    return cash._id;
+  }
 }
