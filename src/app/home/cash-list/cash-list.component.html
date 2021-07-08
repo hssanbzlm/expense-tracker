@@ -1,4 +1,5 @@
 <div *ngIf="dataSource">
+  <div (click)="generatePdf()">PDF</div>
   <div
     *ngFor="let item of dataSource | async; trackBy: tracker"
     class="cash-list-container"

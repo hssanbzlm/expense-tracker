@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -5,10 +6,16 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  ViewChild,
+  ElementRef,
+  ViewChildren,
+  QueryList,
+  Inject,
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { cash } from 'src/app/shared/Interfaces/cash';
 import { CashService } from 'src/app/shared/services/cash.service';
+import { PdfGeneratorService } from 'src/app/shared/services/pdf-generator.service';
 
 @Component({
   selector: 'app-cash-list',
@@ -22,7 +29,11 @@ export class CashListComponent implements OnInit, OnDestroy {
   @Input() search: string;
   @Output() deletedId = new EventEmitter<number>(); // we get this from cash component when item deleted to be sent to cash-edit to check if the seleted cash
   // and deleted cash are the same. if they are equal , cash-edit will be reinitialized
-  constructor(private cashService: CashService) {}
+  constructor(
+    private cashService: CashService,
+    private pdfGenerator: PdfGeneratorService,
+    @Inject(DOCUMENT) private doc: Document
+  ) {}
 
   ngOnInit(): void {
     this.sub = this.cashService.getCashBook().subscribe(
@@ -46,5 +57,9 @@ export class CashListComponent implements OnInit, OnDestroy {
   }
   tracker(index, cash: cash) {
     return cash._id;
+  }
+
+  generatePdf() {
+    this.pdfGenerator.print(this.doc.getElementsByClassName('cash-container'));
   }
 }

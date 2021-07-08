@@ -26,6 +26,22 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "raf",
+              "core-js-pure/features/symbol/iterator",
+              "core-js-pure/features/symbol",
+              "core-js-pure/features/reflect/get",
+              "core-js-pure/features/promise",
+              "core-js-pure/features/object/set-prototype-of",
+              "core-js-pure/features/object/get-prototype-of",
+              "core-js-pure/features/object/get-own-property-descriptor",
+              "core-js-pure/features/object/define-property",
+              "core-js-pure/features/object/create",
+              "core-js-pure/features/instance/slice",
+              "core-js-pure/features/array/is-array",
+              "core-js-pure/features/array/from",
+              "jspdf-autotable"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
