@@ -46,7 +46,7 @@ export class CashListComponent implements OnInit, OnDestroy {
       },
       (err) => console.log(err)
     );
-    this.dataSource = this.cashService.getSubjectData();
+    this.dataSource = this.cashService.DataSubject;
   }
   ngOnDestroy(): void {
     this.sub.unsubscribe();

@@ -12,6 +12,6 @@ export class TotalCashComponent implements OnInit {
   constructor(private cashService: CashService) {}
   totalInOut: BehaviorSubject<TotalInOut>;
   ngOnInit(): void {
-    this.totalInOut = this.cashService.gettotalInOutData();
+    this.totalInOut = this.cashService.TotalInOutSubject;
   }
 }
