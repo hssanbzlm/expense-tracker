@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { cash } from 'src/app/shared/Interfaces/cash';
+import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { CashService } from 'src/app/shared/services/cash.service';
 
 @Component({
@@ -14,10 +14,10 @@ import { CashService } from 'src/app/shared/services/cash.service';
   styleUrls: ['./cash-edit.component.scss'],
 })
 export class CashEditComponent implements OnInit, OnChanges {
-  currentCash: cash;
+  currentCash: Cash;
   submit: boolean = false;
   constructor(private cashService: CashService) {}
-  @Input() set cash(value: cash) {
+  @Input() set cash(value: Cash) {
     this.currentCash = Object.assign({}, value);
   }
   @Input() deletedId: number;

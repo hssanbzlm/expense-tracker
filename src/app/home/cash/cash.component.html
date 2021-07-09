@@ -7,7 +7,7 @@
     [ngClass]="cash.in == 1 ? 'cash-in' : 'cash-out'"
     style="min-width: 50px; text-align: center"
   >
-    {{ cash.amount }}
+    {{ cash.amount | currency: "TND" }}
   </p>
   <p style="max-width: 500px; text-align: center">
     {{ cash.remark }}
@@ -17,7 +17,7 @@
   </p>
 
   <p style="min-width: 100px; text-align: center">
-    {{ cash.balance }}
+    {{ cash.balance | currency: "TND" }}
   </p>
   <p (click)="deleteCash($event)" style="color: red">X</p>
 </div>

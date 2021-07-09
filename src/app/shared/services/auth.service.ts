@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Token } from '../Interfaces/token';
+import { Token } from '../Interfaces/Token';
 import jwt_decode from 'jwt-decode';
 import { HttpRequestsService } from './http-requests.service';
 import { DecodedToken } from '../Interfaces/DecodedToken';
+import { User } from '../classes/user';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  constructor(private httpRequestService: HttpRequestsService) {}
+export class AuthService extends User {
+  constructor(private httpRequestService: HttpRequestsService) {
+    super();
+  }
 
   signup(auth: object) {
     return this.httpRequestService.signup(auth);

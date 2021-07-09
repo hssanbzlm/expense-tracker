@@ -6,6 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http_Interceptor } from './shared/interceptors/http-interceptor.interceptor';
+import jsPDF from 'jspdf';
+import { PdfGeneratorService } from './shared/services/pdf-generator.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [

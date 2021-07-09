@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { cash } from 'src/app/shared/Interfaces/cash';
+import { Cash } from 'src/app/shared/Interfaces/Cash';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +8,12 @@ import { cash } from 'src/app/shared/Interfaces/cash';
 })
 export class HomeComponent implements OnInit {
   constructor() {}
-  cash: cash;
+  cash: Cash;
   search: string = '';
   deletedId: number;
   ngOnInit(): void {}
 
-  getSelectedCash(cash: cash) {
+  getSelectedCash(cash: Cash) {
     this.cash = cash;
   }
 

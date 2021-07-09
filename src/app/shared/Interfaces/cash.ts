@@ -1,4 +1,4 @@
-export interface cash {
+export interface Cash {
   _id?: number;
   date: Date;
   amount: number;

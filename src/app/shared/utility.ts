@@ -1,7 +1,7 @@
-import { cash } from './Interfaces/cash';
+import { Cash } from './Interfaces/Cash';
 import { TotalInOut } from './Interfaces/TotalInOut';
 
-export function calculateBalance(startingIndex, data: cash[]): cash[] {
+export function calculateBalance(startingIndex, data: Cash[]): Cash[] {
   let newCash = [...data];
   for (let i = startingIndex - 1; i >= 0; i--) {
     if (i == newCash.length - 1) {
@@ -14,13 +14,13 @@ export function calculateBalance(startingIndex, data: cash[]): cash[] {
   return newCash;
 }
 
-export function sortFunction(a: cash, b: cash) {
+export function sortFunction(a: Cash, b: Cash) {
   if (b.date < a.date) return -1;
   if (b.date > a.date) return 1;
   return 0;
 }
 
-export function totalInOut(data: cash[]): TotalInOut {
+export function totalInOut(data: Cash[]): TotalInOut {
   const totalInOut = { in: 0, out: 0 };
   for (let i = 0; i < data.length; i++) {
     if (data[i].in == 1) {

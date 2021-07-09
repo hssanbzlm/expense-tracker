@@ -13,7 +13,8 @@ import {
   Inject,
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { cash } from 'src/app/shared/Interfaces/cash';
+import { Cash } from 'src/app/shared/Interfaces/Cash';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { CashService } from 'src/app/shared/services/cash.service';
 import { PdfGeneratorService } from 'src/app/shared/services/pdf-generator.service';
 
@@ -23,21 +24,24 @@ import { PdfGeneratorService } from 'src/app/shared/services/pdf-generator.servi
   styleUrls: ['./cash-list.component.scss'],
 })
 export class CashListComponent implements OnInit, OnDestroy {
-  dataSource: BehaviorSubject<cash[]>;
+  dataSource: BehaviorSubject<Cash[]>;
   sub: Subscription;
-  @Output() selected = new EventEmitter<cash>();
+  @Output() selected = new EventEmitter<Cash>();
   @Input() search: string;
   @Output() deletedId = new EventEmitter<number>(); // we get this from cash component when item deleted to be sent to cash-edit to check if the seleted cash
   // and deleted cash are the same. if they are equal , cash-edit will be reinitialized
   constructor(
     private cashService: CashService,
     private pdfGenerator: PdfGeneratorService,
+    private authService: AuthService,
     @Inject(DOCUMENT) private doc: Document
   ) {}
 
   ngOnInit(): void {
     this.sub = this.cashService.getCashBook().subscribe(
       (v) => {
+        this.authService.name = v.name;
+        this.authService.lastName = v.lastName;
         this.cashService.treatData(v);
       },
       (err) => console.log(err)
@@ -48,14 +52,14 @@ export class CashListComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  selectedCash(cash: cash) {
+  selectedCash(cash: Cash) {
     this.selected.emit(cash);
   }
 
   getDeletedId(id: number) {
     this.deletedId.emit(id);
   }
-  tracker(index, cash: cash) {
+  tracker(index, cash: Cash) {
     return cash._id;
   }
 

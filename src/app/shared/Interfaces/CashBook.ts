@@ -1,10 +1,10 @@
-import { cash } from './cash';
+import { Cash } from './Cash';
 
 export interface CashBook {
-  expenses: cash[];
+  expenses: Cash[];
   active: boolean;
   _id: string;
   email: string;
   name: string;
-  lastName: String;
+  lastName: string;
 }

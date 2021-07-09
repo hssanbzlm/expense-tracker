@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { cash } from '../Interfaces/cash';
+import { Cash } from '../Interfaces/Cash';
 import { CashBook } from '../Interfaces/CashBook';
 import { HttpRequestsService } from './http-requests.service';
 import { calculateBalance, totalInOut } from '../utility';
@@ -11,7 +11,7 @@ import { TotalInOut } from '../Interfaces/TotalInOut';
 })
 export class CashService {
   private indexSave: number = null; //indexSave will hold index of added/updated cash to choose whether add cash (indexSave=null) or update cash (indexSave>=0)
-  private dataSubject: BehaviorSubject<cash[]> = new BehaviorSubject([]);
+  private dataSubject: BehaviorSubject<Cash[]> = new BehaviorSubject([]);
   private totalInOutSubject: BehaviorSubject<TotalInOut> = new BehaviorSubject({
     in: 0,
     out: 0,
@@ -38,7 +38,7 @@ export class CashService {
   getSubjectData() {
     return this.dataSubject;
   }
-  saveCash(cash: cash) {
+  saveCash(cash: Cash) {
     this.indexSave = this.dataSubject
       .getValue()
       .findIndex((v) => v._id == cash._id);
@@ -49,13 +49,13 @@ export class CashService {
     }
   }
 
-  handleSaveCashResult(cash: cash) {
+  handleSaveCashResult(cash: Cash) {
     if (this.indexSave >= 0) {
       this.updateCash(cash);
     } else this.addCash(cash);
   }
 
-  updateCash(cash: cash) {
+  updateCash(cash: Cash) {
     let newCash = [];
     newCash = this.dataSubject.getValue().map((v, index) => {
       if (index == this.indexSave) {
@@ -67,7 +67,7 @@ export class CashService {
     newCash = calculateBalance(newCash.length, newCash);
     this.sendUpdatesToSubscribers(newCash, totalInOut(newCash));
   }
-  addCash(cash: cash) {
+  addCash(cash: Cash) {
     let newCash = [];
     newCash = [...this.dataSubject.getValue()];
     let index = newCash.findIndex((v) => v.date < cash.date);
@@ -95,7 +95,7 @@ export class CashService {
     this.sendUpdatesToSubscribers(newCash, totalInOut(newCash));
   }
 
-  sendUpdatesToSubscribers(cash: cash[], totalInOut: TotalInOut) {
+  sendUpdatesToSubscribers(cash: Cash[], totalInOut: TotalInOut) {
     this.dataSubject.next(cash);
     this.totalInOutSubject.next(totalInOut);
   }

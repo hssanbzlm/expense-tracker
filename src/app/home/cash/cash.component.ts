@@ -9,7 +9,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { cash } from 'src/app/shared/Interfaces/cash';
+import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { CashService } from 'src/app/shared/services/cash.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
@@ -29,9 +29,9 @@ export class CashComponent implements OnInit, OnDestroy {
   modalContainer: ViewContainerRef;
   ngOnInit(): void {}
 
-  @Input() cash: cash;
+  @Input() cash: Cash;
   @Input() search: string;
-  @Output() selectedCash = new EventEmitter<cash>();
+  @Output() selectedCash = new EventEmitter<Cash>();
   @Output() deletedId = new EventEmitter<number>(); // this id will be sent to cash-edit component to check if the deleted
   //cash is same as the selected. if they are equal cash-edit will be reinitialized
   selectCash(e) {

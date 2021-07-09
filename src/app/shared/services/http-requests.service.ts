@@ -2,9 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { cash } from '../Interfaces/cash';
+import { Cash } from '../Interfaces/Cash';
 import { CashBook } from '../Interfaces/CashBook';
-import { Token } from '../Interfaces/token';
+import { Token } from '../Interfaces/Token';
 
 @Injectable({
   providedIn: 'root',
@@ -16,19 +16,19 @@ export class HttpRequestsService {
     return this.http.get<CashBook>(`${environment.cashBaseUrl}/getexpenses`);
   }
 
-  updateCash(cash: cash): Observable<cash> {
-    return this.http.put<cash>(
+  updateCash(cash: Cash): Observable<Cash> {
+    return this.http.put<Cash>(
       `${environment.cashBaseUrl}/updateexpense`,
       cash
     );
   }
 
-  addCash(cash: cash): Observable<cash> {
-    return this.http.post<cash>(`${environment.cashBaseUrl}/addexpense`, cash);
+  addCash(cash: Cash): Observable<Cash> {
+    return this.http.post<Cash>(`${environment.cashBaseUrl}/addexpense`, cash);
   }
 
-  deleteCash(id: number): Observable<cash> {
-    return this.http.delete<cash>(
+  deleteCash(id: number): Observable<Cash> {
+    return this.http.delete<Cash>(
       `${environment.cashBaseUrl}/deleteexpense/${id}`
     );
   }
