@@ -37,17 +37,17 @@ export class CashData {
     this._indexSave = indexSave;
   }
 
-  treatData(expense: CashBook) {
+  treatLocalData(expense: CashBook) {
     let cash = [];
     if (expense.expenses.length > 0) {
       cash = [...expense.expenses];
       cash.sort(sortFunction);
       cash = calculateBalance(cash.length, cash);
     }
-    this.sendUpdatesToSubscribers(cash, totalInOut(cash));
+    return cash;
   }
 
-  updateCash(cash: Cash) {
+  updateLocalCash(cash: Cash) {
     let newCash = [];
     newCash = this._dataSubject.getValue().map((v, index) => {
       if (index == this._indexSave) {
@@ -57,10 +57,10 @@ export class CashData {
     });
     newCash.sort(sortFunction); // we sort data in case user has updated the date
     newCash = calculateBalance(newCash.length, newCash);
-    this.sendUpdatesToSubscribers(newCash, totalInOut(newCash));
+    return newCash;
   }
 
-  addCash(cash: Cash) {
+  addLocalCash(cash: Cash) {
     let newCash = [];
     newCash = [...this._dataSubject.getValue()];
     let index = newCash.findIndex((v) => v.date < cash.date);
@@ -71,26 +71,15 @@ export class CashData {
       newCash.push(cash);
       newCash = calculateBalance(newCash.length, newCash);
     }
-    this.sendUpdatesToSubscribers(newCash, totalInOut(newCash));
+    return newCash;
   }
 
-  handleDeleteCash(idDeleted: number) {
+  deleteLocalCash(idDeleted: number) {
     let newCash = [];
     newCash = this._dataSubject.getValue().filter((v) => v._id != idDeleted);
     if (newCash.length > 0) {
       newCash = calculateBalance(newCash.length, newCash);
     }
-    this.sendUpdatesToSubscribers(newCash, totalInOut(newCash));
-  }
-
-  handleSaveCashResult(cash: Cash) {
-    if (this._indexSave >= 0) {
-      this.updateCash(cash);
-    } else this.addCash(cash);
-  }
-
-  sendUpdatesToSubscribers(cash: Cash[], totalInOut: TotalInOut) {
-    this._dataSubject.next(cash);
-    this._totalInOutSubject.next(totalInOut);
+    return newCash;
   }
 }
