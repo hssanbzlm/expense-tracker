@@ -8,7 +8,8 @@ import {
   ViewContainerRef,
   OnDestroy,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { of, Subscription, EMPTY } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { CashService } from 'src/app/shared/services/cash.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
@@ -24,7 +25,6 @@ export class CashComponent implements OnInit, OnDestroy {
     private cashService: CashService,
     private modalService: ModalService
   ) {}
-  sub: Subscription;
   @ViewChild('modal', { read: ViewContainerRef })
   modalContainer: ViewContainerRef;
   ngOnInit(): void {}
@@ -40,20 +40,21 @@ export class CashComponent implements OnInit, OnDestroy {
   }
   deleteCash(e) {
     e.stopPropagation();
-    this.sub = this.modalService
+    this.modalService
       .open(
         this.modalContainer,
         'You are about to delete a cash',
         'Are you sure ?'
       )
+      .pipe(
+        mergeMap((v) => {
+          // if we receive 'confirm'
+          return this.cashService.deleteCash(this.cash._id);
+        })
+      )
       .subscribe((v) => {
-        if (v === 'confirm') {
-          this.cashService.deleteCash(this.cash._id).subscribe(() => {
-            //to refactor =>sub inside sub !!
-            this.sendDeletedId();
-            this.cashService.handleDeleteCash(this.cash._id);
-          });
-        }
+        this.sendDeletedId();
+        this.cashService.handleDeleteCash(this.cash._id);
       });
   }
 
@@ -61,6 +62,6 @@ export class CashComponent implements OnInit, OnDestroy {
     this.deletedId.emit(this.cash._id);
   }
   ngOnDestroy(): void {
-    if (this.sub) this.sub.unsubscribe();
+    //subscription is ended by the sender
   }
 }

@@ -10,7 +10,7 @@ import { ModalComponent } from 'src/app/home/modal/modal.component';
 @Injectable()
 export class ModalService {
   private componentRef: ComponentRef<ModalComponent>;
-  private componentSubscriber: Subject<string> = new Subject<string>();
+  private componentSubscriber: Subject<string>;
   constructor(private resolver: ComponentFactoryResolver) {}
 
   open(
@@ -24,10 +24,12 @@ export class ModalService {
     this.componentRef.instance.confirmme.subscribe(() => this.confirm());
     this.componentRef.instance.title = modalTitle;
     this.componentRef.instance.body = modalBody;
-    return this.componentSubscriber;
+    this.componentSubscriber = new Subject<string>();
+    return this.componentSubscriber.asObservable();
   }
 
   closeMe() {
+    this.componentSubscriber.complete();
     this.componentRef.destroy();
   }
   confirm() {
