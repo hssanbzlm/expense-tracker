@@ -33,11 +33,10 @@ export class CashEditComponent implements OnInit, OnChanges {
     this.cashService.saveCash(this.currentCash).subscribe(
       (v) => {
         this.cashService.handleSaveCash(v);
+        this.resetCash();
       },
       (err) => console.log(err)
     );
-
-    this.resetCash();
   }
 
   resetCash() {
