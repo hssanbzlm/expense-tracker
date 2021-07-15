@@ -1,5 +1,5 @@
 .search-cash-list-container {
-  width: auto;
+  width: 700px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -8,29 +8,36 @@
   justify-content: space-around;
 }
 
-.home-container {
-  display: flex;
-  justify-content: center;
-  width: auto;
-  height: auto;
-  background-color: red;
-}
-
 .cash-edit-container {
   background-color: orchid;
-  width: auto;
-  height: auto;
+  width: 300px;
+  height: 500px;
   margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
+.home-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: auto;
+  height: auto;
+  background-color: red;
+}
 
-@media screen and (max-width:500px) {
+
+
+@media screen and (max-width:750px) {
 
   .home-container {
     flex-direction: column;
+    align-items: center;
+  }
+
+  .search-cash-list-container,
+  .cash-edit-container {
+    width: auto;
   }
 
 }

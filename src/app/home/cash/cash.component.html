@@ -4,22 +4,29 @@
   (click)="selectCash($event)"
 >
   <p
+    class="currency"
     [ngClass]="cash.in == 1 ? 'cash-in' : 'cash-out'"
-    style="min-width: 50px; text-align: center"
+    style="text-align: center"
   >
     {{ cash.amount | currency: "TND" }}
   </p>
-  <p style="max-width: 500px; text-align: center">
+  <p class="remark" style="text-align: center">
     {{ cash.remark }}
   </p>
-  <p style="min-width: 100px; text-align: center">
+  <p class="date" style="text-align: center">
     {{ cash.date | date }}
   </p>
 
-  <p style="min-width: 100px; text-align: center">
+  <p class="balance" style="text-align: center">
     {{ cash.balance | currency: "TND" }}
   </p>
-  <p (click)="deleteCash($event)" style="color: red">X</p>
+  <p
+    class="delete"
+    (click)="deleteCash($event)"
+    style="color: red; text-align: center"
+  >
+    X
+  </p>
 </div>
 
 <div id="modal" #modal></div>

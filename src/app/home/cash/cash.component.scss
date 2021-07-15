@@ -2,8 +2,8 @@
 
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  min-height: 50px;
+  width: auto;
+  height: auto;
   margin-bottom: 5px;
   background-color: rgb(35, 77, 116);
   cursor: pointer;
@@ -15,4 +15,25 @@
 
 .cash-out {
   color: red;
+}
+
+.remark,
+.date,
+.currency,
+.balance {
+  flex-basis: 20%;
+}
+
+.delete {
+  flex-basis: 5%;
+}
+
+@media screen and (max-width:620px) {
+
+
+  .cash-container {
+    flex-direction: column;
+  }
+
+
 }
