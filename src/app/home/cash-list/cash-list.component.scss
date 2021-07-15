@@ -1,7 +1,24 @@
 .cash-list-container {
   display: flex;
   flex-direction: column;
-  background-color: orange;
   height: auto;
   width: 100%;
+}
+
+.btn-pdf {
+  background-image: linear-gradient(to right, #ff6e7f 0%, #bfe9ff 51%, #ff6e7f 100%);
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: black;
+  border-radius: 10px;
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.btn-pdf:hover {
+  background-position: right center;
+  color: #fff;
+  text-decoration: none;
 }

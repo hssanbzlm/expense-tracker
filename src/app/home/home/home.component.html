@@ -3,6 +3,7 @@
   <div class="search-cash-list-container">
     <app-total-cash></app-total-cash>
     <app-search (searchEmitter)="getSearch($event)"></app-search>
+
     <app-cash-list
       [search]="search"
       (selected)="getSelectedCash($event)"

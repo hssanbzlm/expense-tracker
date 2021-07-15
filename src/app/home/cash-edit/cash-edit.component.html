@@ -47,7 +47,9 @@
       <input type="radio" name="in" [value]="-1" [(ngModel)]="currentCash.in" />
       <label for="cash-out"> Out</label>
     </div>
-    <button [disabled]="f.invalid" type="submit">Save</button>
-    <button type="button" (click)="resetCash()">Reset</button>
+    <div class="btn-group">
+      <button [disabled]="f.invalid" type="submit">Save</button>
+      <button type="button" (click)="resetCash()">Reset</button>
+    </div>
   </form>
 </div>

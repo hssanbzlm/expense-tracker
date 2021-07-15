@@ -26,9 +26,19 @@ export class PdfGeneratorService {
     this.cashHistory = [];
     for (let i = 0; i < pdfTemplate.length; i++) {
       const cashContent = [];
+      console.log(
+        pdfTemplate
+          .item(i)
+          .getElementsByTagName('p')
+          .item(0)
+          .className.split(' ')[1]
+      );
       let signAmount =
-        pdfTemplate.item(i).getElementsByTagName('p').item(0).className ==
-        'cash-in'
+        pdfTemplate
+          .item(i)
+          .getElementsByTagName('p')
+          .item(0)
+          .className.split(' ')[1] == 'cash-in'
           ? ''
           : '-';
       cashContent[0] =

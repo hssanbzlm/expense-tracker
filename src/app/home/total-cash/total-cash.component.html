@@ -1,4 +1,4 @@
 <div *ngIf="totalInOut | async as totalInOut">
-  <p>{{ totalInOut.in | currency: "TND" }}</p>
-  <p>{{ totalInOut.out | currency: "TND" }}</p>
+  <p class="cash-in">{{ totalInOut.in | currency: "TND" }}</p>
+  <p class="cash-out">{{ totalInOut.out | currency: "TND" }}</p>
 </div>

@@ -30,6 +30,7 @@ export class CashEditComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
   saveCash() {
+    this.submit = true;
     this.cashService.saveCash(this.currentCash).subscribe(
       (v) => {
         this.cashService.handleSaveCash(v);
@@ -40,6 +41,7 @@ export class CashEditComponent implements OnInit, OnChanges {
   }
 
   resetCash() {
+    this.submit = false;
     this.currentCash = {
       amount: null,
       date: null,

@@ -1,5 +1,7 @@
 <div *ngIf="dataSource">
-  <div *ngIf="search.length == 0" (click)="generatePdf()">PDF</div>
+  <button class="btn-pdf" *ngIf="search.length == 0" (click)="generatePdf()">
+    Gnerate pdf report
+  </button>
   <div
     *ngFor="let item of dataSource | async; trackBy: tracker"
     class="cash-list-container"
