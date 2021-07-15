@@ -36,7 +36,7 @@ export class CashComponent implements OnInit, OnDestroy {
   //cash is same as the selected. if they are equal cash-edit will be reinitialized
   selectCash(e) {
     e.stopPropagation();
-    this.selectedCash.emit(this.cash);
+    this.selectedCash.emit(Object.assign({}, this.cash));
   }
   deleteCash(e) {
     e.stopPropagation();
