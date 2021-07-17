@@ -35,10 +35,10 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.emailFormGroup = this.fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
     });
     this.codeFormGroup = this.fb.group({
-      code: ['', Validators.required],
+      code: ['', [Validators.required]],
     });
     this.passwordFormGroup = this.fb.group({
       newPassword: ['', Validators.required],
