@@ -1,3 +1,5 @@
+@import '../../styles/mixins';
+
 .main-container {
 
   min-width: 100vw;
@@ -21,10 +23,6 @@
     justify-content: space-around;
   }
 
-  input {
-
-    max-width: 200px;
-  }
 
   label {
     font-style: italic;
@@ -34,20 +32,19 @@
 }
 
 
-input[type="text"],
-input[type="password"],
-input[type="password"] {
+input {
+  max-width: 200px;
+
   border: 1px solid lightgrey;
   border-radius: 20px;
   outline: none;
   text-align: center;
   height: 30px;
-}
 
+  &:hover {
 
-input:hover {
-  box-shadow: 0px 2px 6px lightgray;
-
+    box-shadow: 0px 2px 6px lightgray;
+  }
 }
 
 .btn-container {
@@ -56,23 +53,8 @@ input:hover {
   align-items: center;
 
   button {
-
-    border-radius: 0.3rem;
-    padding: 0.3em 1.2em;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: black;
-    color: rgb(214, 183, 8);
-    border: rgba(214, 183, 8) 1px solid;
-    font-style: italic;
+    @include btn-theme;
     margin-top: 20px;
-  }
-
-  button:hover {
-
-    background-color: rgba(214, 183, 8);
-    color: black;
-
-
   }
 }
 

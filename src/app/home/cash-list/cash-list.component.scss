@@ -15,10 +15,11 @@
   display: block;
   margin-bottom: 10px;
   cursor: pointer;
-}
 
-.btn-pdf:hover {
-  background-position: right center;
-  color: #fff;
-  text-decoration: none;
+  &:hover {
+
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+  }
 }

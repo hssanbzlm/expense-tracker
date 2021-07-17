@@ -1,20 +1,10 @@
 <div class="modal-container">
-  <div
-    style="
-      width: 500px;
-      height: auto;
-      border: olive 1px solid;
-      background-color: white;
-      border-radius: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    "
-  >
+  <div class="modal">
     <h1 class="title">{{ title }}</h1>
     <p class="body">{{ body }}</p>
-    <button (click)="closeMe()">close</button>
-    <button (click)="confirmMe()">Confirm</button>
+    <div class="btn-group">
+      <button (click)="closeMe()">close</button>
+      <button (click)="confirmMe()">Confirm</button>
+    </div>
   </div>
 </div>
