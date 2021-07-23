@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ResetPasswordService } from 'src/app/shared/services/reset-password.service';
+import { matchPassword } from 'src/app/shared/validator';
 
 @Component({
   selector: 'app-reset-password',
@@ -19,9 +20,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   //Toggling between templates is based on inEmailForm, inCodeForm and inPasswordForm attributes
   // This pattern is useful when we want the user to follow a specific order in doing tasks
   // putemail=>put code => update password*/
-  inEmailForm: boolean = true;
+  inEmailForm: boolean = false;
   inCodeForm: boolean = false;
-  inPasswordForm: boolean = false;
+  inPasswordForm: boolean = true;
   emailFormGroup: FormGroup;
   codeFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
@@ -40,10 +41,13 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.codeFormGroup = this.fb.group({
       code: ['', [Validators.required]],
     });
-    this.passwordFormGroup = this.fb.group({
-      newPassword: ['', Validators.required],
-      retypeNewPassword: ['', Validators.required],
-    });
+    this.passwordFormGroup = this.fb.group(
+      {
+        newPassword: ['', [Validators.required, Validators.minLength(8)]],
+        retypeNewPassword: ['', [Validators.required]],
+      },
+      { validator: matchPassword('newPassword', 'retypeNewPassword') } //
+    );
   }
 
   onSumbitEmailForm() {
@@ -112,4 +116,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
+}
+function MustMatch(arg0: string, arg1: string): any {
+  throw new Error('Function not implemented.');
 }
