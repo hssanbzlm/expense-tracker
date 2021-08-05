@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscriber, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -13,7 +14,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   constructor(
     private formBuild: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
   ngOnInit(): void {}
   signupForm: FormGroup = this.formBuild.group({
@@ -46,7 +48,12 @@ export class SignupComponent implements OnInit, OnDestroy {
         .subscribe((v) => console.log(v));
     }
   }
+
+  redirectToLogin() {
+    this.router.navigateByUrl('user/login');
+  }
+
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) this.sub.unsubscribe();
   }
 }

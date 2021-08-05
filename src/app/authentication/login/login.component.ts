@@ -39,6 +39,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   redirectToResetPassword() {
     this.router.navigateByUrl('user/resetpassword');
   }
+  redirectToSignup() {
+    this.router.navigateByUrl('user/signup');
+  }
   ngOnDestroy(): void {
     if (this.sub) {
       this.sub.unsubscribe();

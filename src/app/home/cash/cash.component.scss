@@ -4,7 +4,7 @@
   @include theme;
   display: flex;
   justify-content: space-between;
-  width: auto;
+  width: 400px;
   height: auto;
   margin-bottom: 5px;
   cursor: pointer;
@@ -36,4 +36,10 @@
     flex-direction: column;
   }
 
+}
+
+@media screen and (max-width:390px) {
+  .cash-container {
+    width: auto
+  }
 }
