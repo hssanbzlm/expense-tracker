@@ -84,9 +84,13 @@
           >Confirm password must be equal to password</small
         >
       </div>
+      <div class="login-container" (click)="redirectToLogin()">Login</div>
       <div class="btn-container">
-        <button type="submit">Login</button>
+        <button type="submit">Signup</button>
       </div>
     </form>
+  </div>
+  <div *ngIf="validationEmailSent" class="success-container">
+    a link has been sent to your email to confirm your account
   </div>
 </div>

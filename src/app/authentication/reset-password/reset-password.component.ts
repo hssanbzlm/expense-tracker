@@ -20,9 +20,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   //Toggling between templates is based on inEmailForm, inCodeForm and inPasswordForm attributes
   // This pattern is useful when we want the user to follow a specific order in doing tasks
   // putemail=>put code => update password*/
-  inEmailForm: boolean = false;
+  inEmailForm: boolean = true;
   inCodeForm: boolean = false;
-  inPasswordForm: boolean = true;
+  inPasswordForm: boolean = false;
   emailFormGroup: FormGroup;
   codeFormGroup: FormGroup;
   passwordFormGroup: FormGroup;
@@ -39,7 +39,10 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
     });
     this.codeFormGroup = this.fb.group({
-      code: ['', [Validators.required]],
+      code: [
+        '',
+        [Validators.required, Validators.min(1000), Validators.max(9999)],
+      ],
     });
     this.passwordFormGroup = this.fb.group(
       {
@@ -116,7 +119,4 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {}
-}
-function MustMatch(arg0: string, arg1: string): any {
-  throw new Error('Function not implemented.');
 }

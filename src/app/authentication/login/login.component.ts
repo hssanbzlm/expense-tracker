@@ -32,12 +32,15 @@ export class LoginComponent implements OnInit, OnDestroy {
           localStorage.setItem('token', v.token);
           this.router.navigateByUrl('/home');
         },
-        (err) => console.log(err)
+        (err) => {}
       );
     }
   }
   redirectToResetPassword() {
     this.router.navigateByUrl('user/resetpassword');
+  }
+  redirectToSignup() {
+    this.router.navigateByUrl('user/signup');
   }
   ngOnDestroy(): void {
     if (this.sub) {
