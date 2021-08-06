@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  userBaseUrl: '',
-  cashBaseUrl: '',
-  settingBaseUrl: '',
+  userBaseUrl: "https://expenese-track-back.herokuapp.com/user",
+  cashBaseUrl: 'https://expenese-track-back.herokuapp.com/expense',
+  settingBaseUrl: 'https://expenese-track-back.herokuapp.com/setting',
 };
