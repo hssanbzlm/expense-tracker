@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { of, Subscription, EMPTY } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
-import { Cash } from '../../shared/Interfaces/Cash';
+import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { CashService } from 'src/app/shared/services/cash.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 
