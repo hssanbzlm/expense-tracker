@@ -6,7 +6,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build --output-hashing bundles --source-map=true",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -24,6 +24,7 @@
     "@angular/platform-browser": "~12.0.3",
     "@angular/platform-browser-dynamic": "~12.0.3",
     "@angular/router": "~12.0.3",
+    "express": "^4.17.1",
     "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.15",
     "jwt-decode": "^3.1.2",
