@@ -1,6 +1,9 @@
 {
   "name": "expense-tracker",
   "version": "0.0.0",
+  "engines": {
+    "node": "14.15.4"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
