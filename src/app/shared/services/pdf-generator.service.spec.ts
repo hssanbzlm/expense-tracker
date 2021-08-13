@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { PdfGeneratorService } from './pdf-generator.service';
 
-describe('PdfGeneratorService', () => {
+xdescribe('PdfGeneratorService', () => {
   let service: PdfGeneratorService;
 
   beforeEach(() => {

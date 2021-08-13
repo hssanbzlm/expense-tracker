@@ -2,15 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TotalCashComponent } from './total-cash.component';
 
-describe('TotalCashComponent', () => {
+xdescribe('TotalCashComponent', () => {
   let component: TotalCashComponent;
   let fixture: ComponentFixture<TotalCashComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TotalCashComponent ]
-    })
-    .compileComponents();
+      declarations: [TotalCashComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
