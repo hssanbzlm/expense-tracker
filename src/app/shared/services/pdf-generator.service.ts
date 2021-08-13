@@ -12,6 +12,7 @@ export class PdfGeneratorService {
   constructor(private authService: AuthService) {}
 
   print(pdfTemplate: HTMLCollectionOf<Element>) {
+    console.log('pdf generator service');
     this.getCashHistory(pdfTemplate);
     this.setUpDoc();
     autoTable(this.doc, {
@@ -26,13 +27,6 @@ export class PdfGeneratorService {
     this.cashHistory = [];
     for (let i = 0; i < pdfTemplate.length; i++) {
       const cashContent = [];
-      console.log(
-        pdfTemplate
-          .item(i)
-          .getElementsByTagName('p')
-          .item(0)
-          .className.split(' ')[1]
-      );
       let signAmount =
         pdfTemplate
           .item(i)

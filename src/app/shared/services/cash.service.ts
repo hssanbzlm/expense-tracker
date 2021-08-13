@@ -7,11 +7,12 @@ import { calculateBalance, totalInOut } from '../utility';
 import { sortFunction } from '../utility';
 import { TotalInOut } from '../Interfaces/TotalInOut';
 import { CashData } from '../classes/cash-data';
+import { MockHttpRequestService } from './mock-http-request.service';
 @Injectable({
   providedIn: 'root',
 })
 export class CashService extends CashData {
-  constructor(private httpRequests: HttpRequestsService) {
+  constructor(private httpRequests: MockHttpRequestService) {
     super();
   }
 
