@@ -25,6 +25,9 @@ export class MockHttpRequestService {
     return data.expenses.length;
   }
 
+  getExpensesData() {
+    return data;
+  }
   getExpenses(): Observable<CashBook> {
     return of(data);
   }
