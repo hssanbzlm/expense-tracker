@@ -8,6 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http_Interceptor } from './shared/interceptors/http-interceptor.interceptor';
 import jsPDF from 'jspdf';
 import { PdfGeneratorService } from './shared/services/pdf-generator.service';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './store';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -15,6 +17,7 @@ import { PdfGeneratorService } from './shared/services/pdf-generator.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    StoreModule.forRoot(reducer),
   ],
   providers: [
     {
