@@ -10,6 +10,10 @@ import jsPDF from 'jspdf';
 import { PdfGeneratorService } from './shared/services/pdf-generator.service';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { CashEffects } from './store/cash/cash.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,6 +22,8 @@ import { reducer } from './store';
     BrowserAnimationsModule,
     HttpClientModule,
     StoreModule.forRoot(reducer),
+    EffectsModule.forRoot([CashEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 10 }),
   ],
   providers: [
     {

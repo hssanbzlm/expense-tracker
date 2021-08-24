@@ -35,7 +35,7 @@ export class LoadCash implements Action {
 }
 
 export class CashLoaded implements Action {
-  constructor(public payload) {}
+  constructor(public payload: Cash[]) {}
   readonly type = CashActionTypes.CashLoaded;
 }
 //effect

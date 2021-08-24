@@ -12,11 +12,14 @@ import {
   QueryList,
   Inject,
 } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CashService } from 'src/app/shared/services/cash.service';
 import { PdfGeneratorService } from 'src/app/shared/services/pdf-generator.service';
+import { LoadCash } from 'src/app/store/cash/cash.action';
+import { CashState } from 'src/app/store/cash/cash.reducer';
 
 @Component({
   selector: 'app-cash-list',
@@ -24,7 +27,7 @@ import { PdfGeneratorService } from 'src/app/shared/services/pdf-generator.servi
   styleUrls: ['./cash-list.component.scss'],
 })
 export class CashListComponent implements OnInit, OnDestroy {
-  dataSource: BehaviorSubject<Cash[]>;
+  cashs$: Observable<Cash[]>;
   sub: Subscription;
   @Output() selected = new EventEmitter<Cash>();
   @Input() search: string;
@@ -34,19 +37,18 @@ export class CashListComponent implements OnInit, OnDestroy {
     private cashService: CashService,
     private pdfGenerator: PdfGeneratorService,
     private authService: AuthService,
+    private store: Store<CashState>,
     @Inject(DOCUMENT) private doc: Document
-  ) {}
+  ) {
+    this.cashs$ = this.store.select('cash');
+  }
 
   ngOnInit(): void {
-    this.sub = this.cashService.getCashBook().subscribe(
-      (v) => {
-        this.authService.name = v.name;
-        this.authService.lastName = v.lastName;
-        this.cashService.treatData(v);
-      },
-      (err) => console.log(err)
-    );
-    this.dataSource = this.cashService.DataSubject;
+    this.getCash();
+  }
+
+  getCash() {
+    this.store.dispatch(new LoadCash());
   }
   ngOnDestroy(): void {
     this.sub.unsubscribe();
