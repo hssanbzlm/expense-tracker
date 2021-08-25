@@ -39,8 +39,16 @@ export function cashReducer(state:CashState, action: CashActions):CashState {
         default:
             return state
     }
+}
 
-
-
-
+export function getCashEntities(state: CashState) {
+  return state?.cash;
+}
+export function getSelectedCash(state: CashState) {
+  return state.selectedCash
+    ? Object.assign(
+        {},
+        state.cash.find((cash) => cash._id == state.selectedCash)
+      )
+    : null;
 }

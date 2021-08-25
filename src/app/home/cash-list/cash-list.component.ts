@@ -18,8 +18,8 @@ import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CashService } from 'src/app/shared/services/cash.service';
 import { PdfGeneratorService } from 'src/app/shared/services/pdf-generator.service';
+import { AppState, selectCash } from 'src/app/store';
 import { LoadCash } from 'src/app/store/cash/cash.action';
-import { CashState } from 'src/app/store/cash/cash.reducer';
 
 @Component({
   selector: 'app-cash-list',
@@ -37,14 +37,13 @@ export class CashListComponent implements OnInit, OnDestroy {
     private cashService: CashService,
     private pdfGenerator: PdfGeneratorService,
     private authService: AuthService,
-    private store: Store<CashState>,
+    private store: Store<AppState>,
     @Inject(DOCUMENT) private doc: Document
-  ) {
-    this.cashs$ = this.store.select('cash');
-  }
+  ) {}
 
   ngOnInit(): void {
     this.getCash();
+    this.cashs$ = this.store.pipe(select(selectCash));
   }
 
   getCash() {
