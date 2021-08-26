@@ -8,11 +8,14 @@ import {
   ViewContainerRef,
   OnDestroy,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { of, Subscription, EMPTY } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { CashService } from 'src/app/shared/services/cash.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
+import { AppState } from 'src/app/store';
+import { RemoveCash } from 'src/app/store/cash/cash.action';
 
 @Component({
   selector: 'app-cash',
@@ -23,7 +26,8 @@ import { ModalService } from 'src/app/shared/services/modal.service';
 export class CashComponent implements OnInit, OnDestroy {
   constructor(
     private cashService: CashService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private store: Store<AppState>
   ) {}
   @ViewChild('modal', { read: ViewContainerRef })
   modalContainer: ViewContainerRef;
@@ -46,15 +50,8 @@ export class CashComponent implements OnInit, OnDestroy {
         'You are about to delete a cash',
         'Are you sure ?'
       )
-      .pipe(
-        mergeMap((v) => {
-          // if we receive 'confirm'
-          return this.cashService.deleteCash(this.cash._id);
-        })
-      )
       .subscribe((v) => {
-        this.sendDeletedId();
-        this.cashService.handleDeleteCash(this.cash._id);
+        this.store.dispatch(new RemoveCash(this.cash));
       });
   }
 
