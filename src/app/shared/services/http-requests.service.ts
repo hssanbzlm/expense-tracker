@@ -27,8 +27,8 @@ export class HttpRequestsService {
     return this.http.post<Cash>(`${environment.cashBaseUrl}/addexpense`, cash);
   }
 
-  deleteCash(id: number): Observable<Cash> {
-    return this.http.delete<Cash>(
+  deleteCash(id: number): Observable<CashBook> {
+    return this.http.delete<CashBook>(
       `${environment.cashBaseUrl}/deleteexpense/${id}`
     );
   }
