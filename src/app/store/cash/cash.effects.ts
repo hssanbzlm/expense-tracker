@@ -49,11 +49,12 @@ export class CashEffects {
   removeCash$ = this.actions$.pipe(
     ofType(CashActionTypes.RemoveCash),
     mergeMap((action: RemoveCash) => {
-      return this.httpService
-        .deleteCash(action.payload._id)
-        .pipe(
-          map((cash) => ({ type: CashActionTypes.CashRemoved, payload: cash }))
-        );
+      return this.httpService.deleteCash(action.payload._id).pipe(
+        map(() => ({
+          type: CashActionTypes.CashRemoved,
+          payload: action.payload,
+        }))
+      );
     })
   );
 
