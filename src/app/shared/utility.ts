@@ -5,11 +5,23 @@ export function calculateBalance(startingIndex, data: Cash[]): Cash[] {
   let newCash = [...data];
   for (let i = startingIndex - 1; i >= 0; i--) {
     if (i == newCash.length - 1) {
-      newCash[i].balance = newCash[i].amount * newCash[i].in;
+      var returnTarget = Object.assign(
+        {},
+        {
+          ...newCash[i],
+          balance: newCash[i].amount * newCash[i].in,
+        }
+      );
     } else {
-      newCash[i].balance =
-        newCash[i + 1].balance + newCash[i].amount * newCash[i].in;
+      returnTarget = Object.assign(
+        {},
+        {
+          ...newCash[i],
+          balance: newCash[i + 1].balance + newCash[i].amount * newCash[i].in,
+        }
+      );
     }
+    newCash[i] = returnTarget;
   }
   return newCash;
 }
