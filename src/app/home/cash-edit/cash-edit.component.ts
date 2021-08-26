@@ -5,8 +5,11 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { CashService } from 'src/app/shared/services/cash.service';
+import { AppState } from 'src/app/store';
+import { AddCash } from 'src/app/store/cash/cash.action';
 
 @Component({
   selector: 'app-cash-edit',
@@ -16,7 +19,10 @@ import { CashService } from 'src/app/shared/services/cash.service';
 export class CashEditComponent implements OnInit, OnChanges {
   currentCash: Cash;
   submit: boolean = false;
-  constructor(private cashService: CashService) {}
+  constructor(
+    private cashService: CashService,
+    private store: Store<AppState>
+  ) {}
   @Input() set cash(value: Cash) {
     this.currentCash = Object.assign({}, value);
   }
@@ -31,13 +37,7 @@ export class CashEditComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
   saveCash() {
     this.submit = true;
-    this.cashService.saveCash(this.currentCash).subscribe(
-      (v) => {
-        this.cashService.handleSaveCash(v);
-        this.resetCash();
-      },
-      (err) => console.log(err)
-    );
+    this.store.dispatch(new AddCash(this.currentCash));
   }
 
   resetCash() {
