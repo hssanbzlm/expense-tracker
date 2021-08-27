@@ -50,11 +50,11 @@ export function cashReducer(state:CashState, action: CashActions):CashState {
         const cashBalance=calculateBalance(action.payload.length,cash)
             return {selectedCash:null,cash:cashBalance}
         case CashActionTypes.CashAdded:
-            return {selectedCash:state.selectedCash,cash:addCash(action.payload,state.cash)}
+            return {selectedCash:null,cash:addCash(action.payload,state.cash)}
         case CashActionTypes.CashRemoved:
-            return {selectedCash:state.selectedCash,cash:removeCash(action.payload,state.cash)}
+            return {selectedCash:null,cash:removeCash(action.payload,state.cash)}
         case CashActionTypes.CashUpdated:
-            return {selectedCash:state.selectedCash,cash:updateCash(action.payload,state.cash)}
+            return {selectedCash:null,cash:updateCash(action.payload,state.cash)}
         case CashActionTypes.SelectCash:
             return Object.assign({},state,{selectedCash:action.payload._id});
         case CashActionTypes.ResetCash:
@@ -67,11 +67,11 @@ export function cashReducer(state:CashState, action: CashActions):CashState {
 export function getCashEntities(state: CashState) {
   return state?.cash;
 }
-export function getSelectedCash(state: CashState) {
-  return state.selectedCash
+export function getSelectedCash(state: CashState): Cash {
+  return state?.selectedCash
     ? Object.assign(
         {},
         state.cash.find((cash) => cash._id == state.selectedCash)
       )
-    : null;
+    : { date: null, remark: '', in: 1, amount: 0 };
 }

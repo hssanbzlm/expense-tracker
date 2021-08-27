@@ -7,8 +7,8 @@ import {
   RemoveCash,
   UpdateCash,
 } from './cash.action';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, map, mergeMap, concatMap, tap } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
 import { CashBook } from 'src/app/shared/Interfaces/CashBook';
 
 @Injectable({
@@ -28,7 +28,8 @@ export class CashEffects {
         map((cashBook: CashBook) => ({
           type: CashActionTypes.CashLoaded,
           payload: cashBook.expenses,
-        }))
+        })),
+        catchError((err) => EMPTY)
       );
     })
   );
@@ -37,11 +38,10 @@ export class CashEffects {
   addCash$ = this.actions$.pipe(
     ofType(CashActionTypes.AddCash),
     mergeMap((action: AddCash) => {
-      return this.httpService
-        .addCash(action.payload)
-        .pipe(
-          map((cash) => ({ type: CashActionTypes.CashAdded, payload: cash }))
-        );
+      return this.httpService.addCash(action.payload).pipe(
+        map((cash) => ({ type: CashActionTypes.CashAdded, payload: cash })),
+        catchError((error) => of({ type: CashActionTypes.ResetCash }))
+      );
     })
   );
 
@@ -53,7 +53,8 @@ export class CashEffects {
         map(() => ({
           type: CashActionTypes.CashRemoved,
           payload: action.payload,
-        }))
+        })),
+        catchError((err) => EMPTY)
       );
     })
   );
@@ -62,11 +63,10 @@ export class CashEffects {
   updateCash$ = this.actions$.pipe(
     ofType(CashActionTypes.UpdateCash),
     mergeMap((action: UpdateCash) => {
-      return this.httpService
-        .updateCash(action.payload)
-        .pipe(
-          map((cash) => ({ type: CashActionTypes.CashUpdated, payload: cash }))
-        );
+      return this.httpService.updateCash(action.payload).pipe(
+        map((cash) => ({ type: CashActionTypes.CashUpdated, payload: cash })),
+        catchError((error) => of({ type: CashActionTypes.ResetCash }))
+      );
     })
   );
 }

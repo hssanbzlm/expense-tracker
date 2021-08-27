@@ -24,7 +24,7 @@ export class SelectCash implements Action {
 }
 
 export class ResetCash implements Action {
-  constructor(public payload) {}
+  constructor(public payload?) {}
   type = CashActionTypes.ResetCash;
 }
 
