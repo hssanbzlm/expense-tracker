@@ -57,10 +57,16 @@ export class PdfGeneratorService {
     this.doc.text('Cash book history', 80, 10);
     this.doc.setFontSize(10);
     this.doc.text(`${currentDate}`, 10, 20);
-    this.doc.text(`Name: ${this.authService.name}`, 10, 25);
-    this.doc.text(`Last name: ${this.authService.lastName}`, 10, 30);
+    this.doc.text(`Name: ${localStorage.getItem('expenses-uname')}`, 10, 25);
+    this.doc.text(
+      `Last name: ${localStorage.getItem('expenses-ulname')}`,
+      10,
+      30
+    );
     this.doc.setProperties({
-      title: `cash book history of ${this.authService.name} ${this.authService.lastName}`,
+      title: `cash book history of ${localStorage.getItem(
+        'expenses-uname'
+      )} ${localStorage.getItem('expenses-ulname')}`,
     });
   }
 }
