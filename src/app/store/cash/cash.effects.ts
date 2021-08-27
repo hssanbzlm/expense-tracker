@@ -25,10 +25,14 @@ export class CashEffects {
     ofType(CashActionTypes.LoadCash),
     mergeMap(() => {
       return this.httpService.getExpenses().pipe(
-        map((cashBook: CashBook) => ({
-          type: CashActionTypes.CashLoaded,
-          payload: cashBook.expenses,
-        })),
+        map((cashBook: CashBook) => {
+          localStorage.setItem('expenses-uname', cashBook.name);
+          localStorage.setItem('expenses-ulname', cashBook.lastName);
+          return {
+            type: CashActionTypes.CashLoaded,
+            payload: cashBook.expenses,
+          };
+        }),
         catchError((err) => EMPTY)
       );
     })

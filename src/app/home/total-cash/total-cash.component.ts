@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { TotalInOut } from 'src/app/shared/Interfaces/TotalInOut';
-import { CashService } from 'src/app/shared/services/cash.service';
+import { AppState, getTotalInOutCash } from 'src/app/store';
 
 @Component({
   selector: 'app-total-cash',
@@ -9,9 +10,9 @@ import { CashService } from 'src/app/shared/services/cash.service';
   styleUrls: ['./total-cash.component.scss'],
 })
 export class TotalCashComponent implements OnInit {
-  constructor(private cashService: CashService) {}
-  totalInOut: BehaviorSubject<TotalInOut>;
+  constructor(private store: Store<AppState>) {}
+  totalInOut: Observable<TotalInOut>;
   ngOnInit(): void {
-    this.totalInOut = this.cashService.TotalInOutSubject;
+    this.totalInOut = this.store.pipe(select(getTotalInOutCash));
   }
 }

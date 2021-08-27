@@ -1,4 +1,5 @@
 import { Cash } from 'src/app/shared/Interfaces/Cash';
+import { TotalInOut } from 'src/app/shared/Interfaces/TotalInOut';
 import { calculateBalance, sortFunction } from 'src/app/shared/utility';
 import { CashActions, CashActionTypes } from './cash.action';
 
@@ -74,4 +75,14 @@ export function getSelectedCash(state: CashState): Cash {
         state.cash.find((cash) => cash._id == state.selectedCash)
       )
     : { date: null, remark: '', in: 1, amount: 0 };
+}
+
+export function totalInOutCash(state: CashState): TotalInOut {
+  const totalInOut = { in: 0, out: 0 };
+  for (let i = 0; i < state?.cash.length; i++) {
+    if (state?.cash[i].in == 1) {
+      totalInOut.in += state?.cash[i].amount;
+    } else totalInOut.out += state?.cash[i].amount;
+  }
+  return totalInOut;
 }

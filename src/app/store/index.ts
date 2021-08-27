@@ -8,6 +8,7 @@ import {
   CashState,
   getCashEntities,
   getSelectedCash,
+  totalInOutCash,
 } from './cash/cash.reducer';
 
 export interface AppState {
@@ -25,4 +26,9 @@ export const selectCash = createSelector(selectCashState, getCashEntities);
 export const selectSelectedCash = createSelector(
   selectCashState,
   getSelectedCash
+);
+
+export const getTotalInOutCash = createSelector(
+  selectCashState,
+  totalInOutCash
 );
