@@ -19,7 +19,6 @@ export class Http_Interceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     if (request.url.split('/')[3] != 'user') {
       // if url starts with /user we don't need to add token since the user at this point is not yet connected
-      console.log(localStorage.getItem('token'));
       const modifRequest = request.clone({
         setHeaders: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
