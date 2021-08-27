@@ -4,13 +4,9 @@
     <app-total-cash></app-total-cash>
     <app-search (searchEmitter)="getSearch($event)"></app-search>
 
-    <app-cash-list
-      [search]="search"
-      (selected)="getSelectedCash($event)"
-      (deletedId)="getDeletedId($event)"
-    ></app-cash-list>
+    <app-cash-list [search]="search"></app-cash-list>
   </div>
   <div class="cash-edit-container">
-    <app-cash-edit [deletedId]="deletedId" [cash]="cash"></app-cash-edit>
+    <app-cash-edit></app-cash-edit>
   </div>
 </div>
