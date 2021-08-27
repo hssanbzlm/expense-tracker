@@ -2,20 +2,15 @@ import {
   Component,
   Input,
   OnInit,
-  Output,
-  EventEmitter,
   ViewChild,
   ViewContainerRef,
   OnDestroy,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { of, Subscription, EMPTY } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
-import { CashService } from 'src/app/shared/services/cash.service';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { AppState } from 'src/app/store';
-import { RemoveCash } from 'src/app/store/cash/cash.action';
+import { RemoveCash, SelectCash } from 'src/app/store/cash/cash.action';
 
 @Component({
   selector: 'app-cash',
@@ -25,7 +20,6 @@ import { RemoveCash } from 'src/app/store/cash/cash.action';
 })
 export class CashComponent implements OnInit, OnDestroy {
   constructor(
-    private cashService: CashService,
     private modalService: ModalService,
     private store: Store<AppState>
   ) {}
@@ -35,12 +29,10 @@ export class CashComponent implements OnInit, OnDestroy {
 
   @Input() cash: Cash;
   @Input() search: string;
-  @Output() selectedCash = new EventEmitter<Cash>();
-  @Output() deletedId = new EventEmitter<number>(); // this id will be sent to cash-edit component to check if the deleted
-  //cash is same as the selected. if they are equal cash-edit will be reinitialized
+
   selectCash(e) {
     e.stopPropagation();
-    this.selectedCash.emit(Object.assign({}, this.cash));
+    this.store.dispatch(new SelectCash(this.cash));
   }
   deleteCash(e) {
     e.stopPropagation();
@@ -55,10 +47,7 @@ export class CashComponent implements OnInit, OnDestroy {
       });
   }
 
-  sendDeletedId() {
-    this.deletedId.emit(this.cash._id);
-  }
   ngOnDestroy(): void {
-    //subscription is ended by the sender
+    //Open modal subscription is ended by the sender
   }
 }

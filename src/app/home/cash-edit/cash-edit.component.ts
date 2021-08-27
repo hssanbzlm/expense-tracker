@@ -1,52 +1,30 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
-import { CashService } from 'src/app/shared/services/cash.service';
-import { AppState } from 'src/app/store';
-import { AddCash } from 'src/app/store/cash/cash.action';
+import { AppState, selectSelectedCash } from 'src/app/store';
+import { AddCash, ResetCash, UpdateCash } from 'src/app/store/cash/cash.action';
 
 @Component({
   selector: 'app-cash-edit',
   templateUrl: './cash-edit.component.html',
   styleUrls: ['./cash-edit.component.scss'],
 })
-export class CashEditComponent implements OnInit, OnChanges {
+export class CashEditComponent implements OnInit {
   currentCash: Cash;
-  submit: boolean = false;
-  constructor(
-    private cashService: CashService,
-    private store: Store<AppState>
-  ) {}
-  @Input() set cash(value: Cash) {
-    this.currentCash = Object.assign({}, value);
-  }
-  @Input() deletedId: number;
+  constructor(private store: Store<AppState>) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.deletedId === this.currentCash._id) {
-      this.resetCash();
-    }
+  ngOnInit(): void {
+    this.store.pipe(select(selectSelectedCash)).subscribe((v) => {
+      this.currentCash = Object.assign({}, v);
+    });
   }
-
-  ngOnInit(): void {}
   saveCash() {
-    this.submit = true;
-    this.store.dispatch(new AddCash(this.currentCash));
+    if (this.currentCash._id) {
+      this.store.dispatch(new UpdateCash(this.currentCash));
+    } else this.store.dispatch(new AddCash(this.currentCash));
   }
 
   resetCash() {
-    this.submit = false;
-    this.currentCash = {
-      amount: null,
-      date: null,
-      remark: '',
-      in: 1,
-    };
+    this.store.dispatch(new ResetCash());
   }
 }
