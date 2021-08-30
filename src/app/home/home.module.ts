@@ -15,7 +15,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ModalComponent } from './modal/modal.component';
-import jsPDF from 'jspdf';
+import { StoreModule } from '@ngrx/store';
+import { cashReducer } from '../store/cash/cash.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { CashEffects } from '../store/cash/cash.effects';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,8 @@ import jsPDF from 'jspdf';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forFeature('cash', cashReducer),
+    EffectsModule.forFeature([CashEffects]),
   ],
   providers: [MatNativeDateModule, MatDatepickerModule],
 })
