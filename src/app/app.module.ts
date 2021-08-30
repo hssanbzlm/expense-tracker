@@ -6,12 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Http_Interceptor } from './shared/interceptors/http-interceptor.interceptor';
-import jsPDF from 'jspdf';
-import { PdfGeneratorService } from './shared/services/pdf-generator.service';
+
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './store';
 import { EffectsModule } from '@ngrx/effects';
-import { CashEffects } from './store/cash/cash.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
@@ -21,8 +18,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot(reducer),
-    EffectsModule.forRoot([CashEffects]),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 10 }),
   ],
   providers: [
