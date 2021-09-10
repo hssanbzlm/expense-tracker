@@ -48,7 +48,7 @@ export const cashReducer=createReducer({selectedCash:null,cash:[]},
  on(cashActionTypes.cashLoaded,(state,{cash})=>{ 
        const cashs:Cash[]=[...cash]; 
        cashs.sort(sortFunction)
-       const cashBalance=calculateBalance(cash.length,cash) 
+       const cashBalance=calculateBalance(cash.length,cashs) 
        return ({selectedCash:null,cash:cashBalance})
 
 }),
