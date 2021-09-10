@@ -6,7 +6,7 @@ import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PdfGeneratorService } from 'src/app/shared/services/pdf-generator.service';
 import { AppState, selectCash } from 'src/app/store';
-import { LoadCash } from 'src/app/store/cash/cash.action';
+import { loadCash } from 'src/app/store/cash/cash.action';
 
 @Component({
   selector: 'app-cash-list',
@@ -30,7 +30,7 @@ export class CashListComponent implements OnInit, OnDestroy {
   }
 
   getCash() {
-    this.store.dispatch(new LoadCash());
+    this.store.dispatch(loadCash());
   }
 
   tracker(index, cash: Cash) {
