@@ -1,8 +1,8 @@
+import { createReducer, on } from '@ngrx/store';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { TotalInOut } from 'src/app/shared/Interfaces/TotalInOut';
 import { calculateBalance, sortFunction } from 'src/app/shared/utility';
-import { CashActions, CashActionTypes } from './cash.action';
-
+import * as cashActionTypes from './cash.action';
 export function addCash(cash: Cash, cashs: Cash[]) {
   let newCash = [...cashs];
   let index = newCash.findIndex((v) => v.date < cash.date);
@@ -42,29 +42,23 @@ export interface CashState {
 }
 
 //prettier-ignore
-export function cashReducer(state:CashState, action: CashActions):CashState {
 
-    switch(action.type){  
-        case CashActionTypes.CashLoaded: 
-        const cash:Cash[]=[...action.payload]; 
-        cash.sort(sortFunction)
-        const cashBalance=calculateBalance(action.payload.length,cash)
-            return {selectedCash:null,cash:cashBalance}
-        case CashActionTypes.CashAdded:
-            return {selectedCash:null,cash:addCash(action.payload,state.cash)}
-        case CashActionTypes.CashRemoved:
-            return {selectedCash:null,cash:removeCash(action.payload,state.cash)}
-        case CashActionTypes.CashUpdated:
-            return {selectedCash:null,cash:updateCash(action.payload,state.cash)}
-        case CashActionTypes.SelectCash:
-            return Object.assign({},state,{selectedCash:action.payload._id});
-        case CashActionTypes.ResetCash:
-            return Object.assign({},state,{selectedCash:null})
-        default:
-            return state
-    }
-}
+export const cashReducer=createReducer({selectedCash:null,cash:[]},
+ on(cashActionTypes.cashAdded,(state,{cash})=>({selectedCash:null,cash:addCash(cash,state.cash)})),
+ on(cashActionTypes.cashLoaded,(state,{cash})=>{ 
+       const cashs:Cash[]=[...cash]; 
+       cashs.sort(sortFunction)
+       const cashBalance=calculateBalance(cash.length,cash) 
+       return ({selectedCash:null,cash:cashBalance})
 
+}),
+on(cashActionTypes.cashUpdated,(state,{cash})=>({selectedCash:null,cash:updateCash(cash,state.cash)})),
+on(cashActionTypes.cashRemoved,(state,{cash})=>({selectedCash:null,cash:removeCash(cash,state.cash)})),
+on(cashActionTypes.selectCash,(state,{cash})=>(Object.assign({},state,{selectedCash:cash._id}))),
+on(cashActionTypes.resetCash,(state)=>(Object.assign({},state,{selectedCash:null})))
+
+)
+//
 export function getCashEntities(state: CashState) {
   return state?.cash;
 }
