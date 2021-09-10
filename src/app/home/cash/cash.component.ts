@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { ModalService } from 'src/app/shared/services/modal.service';
 import { AppState } from 'src/app/store';
-import { RemoveCash, SelectCash } from 'src/app/store/cash/cash.action';
+import { removeCash, selectCash } from 'src/app/store/cash/cash.action';
 
 @Component({
   selector: 'app-cash',
@@ -32,7 +32,7 @@ export class CashComponent implements OnInit, OnDestroy {
 
   selectCash(e) {
     e.stopPropagation();
-    this.store.dispatch(new SelectCash(this.cash));
+    this.store.dispatch(selectCash({ cash: this.cash }));
   }
   deleteCash(e) {
     e.stopPropagation();
@@ -43,7 +43,7 @@ export class CashComponent implements OnInit, OnDestroy {
         'Are you sure ?'
       )
       .subscribe((v) => {
-        this.store.dispatch(new RemoveCash(this.cash));
+        this.store.dispatch(removeCash({ cash: this.cash }));
       });
   }
 

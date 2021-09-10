@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { AppState, selectSelectedCash } from 'src/app/store';
-import { AddCash, ResetCash, UpdateCash } from 'src/app/store/cash/cash.action';
+import { addCash, resetCash, updateCash } from 'src/app/store/cash/cash.action';
 
 @Component({
   selector: 'app-cash-edit',
@@ -20,11 +20,11 @@ export class CashEditComponent implements OnInit {
   }
   saveCash() {
     if (this.currentCash._id) {
-      this.store.dispatch(new UpdateCash(this.currentCash));
-    } else this.store.dispatch(new AddCash(this.currentCash));
+      this.store.dispatch(updateCash({ cash: this.currentCash }));
+    } else this.store.dispatch(addCash({ cash: this.currentCash }));
   }
 
   resetCash() {
-    this.store.dispatch(new ResetCash());
+    this.store.dispatch(resetCash());
   }
 }
