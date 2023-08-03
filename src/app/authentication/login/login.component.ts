@@ -12,7 +12,9 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
-  private sub: Subscription;
+  error: boolean = false;
+  signInSubscription: Subscription;
+  formChangesSubscription: Subscription;
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -22,18 +24,29 @@ export class LoginComponent implements OnInit, OnDestroy {
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formChangesSubscription = this.loginForm.valueChanges.subscribe(
+      (val) => {
+        this.error = false;
+      }
+    );
+  }
 
   submit() {
     this.submitted = true;
+    this.error = false;
     if (!this.loginForm.invalid) {
-      this.sub = this.authService.signin(this.loginForm.value).subscribe(
-        (v: Token) => {
-          localStorage.setItem('token', v.token);
-          this.router.navigateByUrl('/home');
-        },
-        (err) => {}
-      );
+      this.signInSubscription = this.authService
+        .signin(this.loginForm.value)
+        .subscribe(
+          (v: Token) => {
+            localStorage.setItem('token', v.token);
+            this.router.navigateByUrl('/home');
+          },
+          (err) => {
+            this.error = true;
+          }
+        );
     }
   }
   redirectToResetPassword() {
@@ -43,8 +56,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('user/signup');
   }
   ngOnDestroy(): void {
-    if (this.sub) {
-      this.sub.unsubscribe();
+    if (this.signInSubscription) {
+      this.signInSubscription.unsubscribe();
+    }
+    if (this.formChangesSubscription) {
+      this.formChangesSubscription.unsubscribe();
     }
   }
 }

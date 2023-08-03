@@ -1,44 +1,104 @@
-<div class="main-container">
-  <div class="form-container">
-    <form [formGroup]="loginForm" (ngSubmit)="submit()">
-      <label>Email</label>
-      <input
-        placeholder="email"
-        type="text"
-        name="email"
-        formControlName="email"
-      />
-      <div
-        class="error-container"
-        *ngIf="submitted && loginForm.get('email')?.errors"
-      >
-        <small *ngIf="loginForm.get('email')?.errors?.required"
-          >Email is required</small
+<section class="vh-100">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 text-black mt-5">
+        <div
+          class="d-flex align-items-center justify-content-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n6"
         >
-      </div>
-      <label>Password</label>
+          <form
+            style="width: 23rem"
+            [formGroup]="loginForm"
+            (ngSubmit)="submit()"
+          >
+            <div class="d-flex justify-content-center">
+              <h1 class="mb-5 font-weight-bold">Track your expenses !</h1>
+            </div>
+            <div class="form-outline mb-4">
+              <input
+                type="email"
+                class="form-control form-control-lg"
+                placeholder="Email address"
+                name="email"
+                formControlName="email"
+              />
+              <div
+                class="error-container"
+                *ngIf="submitted && loginForm.get('email')?.errors"
+              >
+                <small
+                  class="text-danger"
+                  *ngIf="loginForm.get('email')?.errors?.required"
+                  >Email is required</small
+                >
+              </div>
+            </div>
 
-      <input
-        placeholder="password"
-        type="password"
-        name="password"
-        formControlName="password"
-      />
-      <div
-        class="error-container"
-        *ngIf="submitted && loginForm.get('password')?.errors"
-      >
-        <small *ngIf="loginForm.get('password')?.errors?.required"
-          >Password is required</small
-        >
+            <div class="form-outline mb-4">
+              <input
+                type="password"
+                class="form-control form-control-lg"
+                placeholder="Password"
+                name="password"
+                formControlName="password"
+              />
+              <div
+                class="error-container"
+                *ngIf="submitted && loginForm.get('password')?.errors"
+              >
+                <small
+                  class="text-danger"
+                  *ngIf="loginForm.get('password')?.errors?.required"
+                  >Password is required</small
+                >
+              </div>
+              <div class="error-container" *ngIf="submitted && error">
+                <small class="text-danger"
+                  >The password you’ve entered is incorrect</small
+                >
+              </div>
+            </div>
+
+            <div class="pt-1 mb-4">
+              <button
+                class="btn btn-info btn-lg btn-block"
+                type="submit"
+                [disabled]="
+                  loginForm.get('email')?.errors ||
+                  loginForm.get('password')?.errors
+                "
+              >
+                Login
+              </button>
+            </div>
+
+            <div class="small mb-5 pb-lg-2">
+              <p
+                class="text-muted cursor-pointer fit-content-width"
+                (click)="redirectToResetPassword()"
+              >
+                Forgot password?
+              </p>
+            </div>
+            <div>
+              Don't have an account?
+              <p
+                class="cursor-pointer font-weight-bold fit-content-width"
+                (click)="redirectToSignup()"
+              >
+                Register here
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="btn-container">
-        <button type="submit">Login</button>
+      <div class="col-sm-6 px-0 d-none d-sm-block">
+        <img
+          src="assets/pxfuel.jpg"
+          alt="Login image"
+          class="w-100 vh-100"
+          style="object-fit: cover; object-position: left"
+        />
       </div>
-      <div style="cursor: pointer" (click)="redirectToResetPassword()">
-        forget password ?
-      </div>
-      <div style="cursor: pointer" (click)="redirectToSignup()">signup</div>
-    </form>
+    </div>
   </div>
-</div>
+</section>

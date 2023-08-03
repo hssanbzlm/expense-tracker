@@ -4,12 +4,9 @@
 
 export const environment = {
   production: false,
-  // userBaseUrl: 'http://localhost:3000/user',
-  // cashBaseUrl: 'http://localhost:3000/expense',
-  // settingBaseUrl: 'http://localhost:3000/setting',
-  userBaseUrl: 'https://expenese-track-back.herokuapp.com/user',
-  cashBaseUrl: 'https://expenese-track-back.herokuapp.com/expense',
-  settingBaseUrl: 'https://expenese-track-back.herokuapp.com/setting',
+  userBaseUrl: 'http://localhost:3000/user',
+  cashBaseUrl: 'http://localhost:3000/expense',
+  settingBaseUrl: 'http://localhost:3000/setting',
 };
 
 /*
