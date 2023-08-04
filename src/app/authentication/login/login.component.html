@@ -62,10 +62,7 @@
               <button
                 class="btn btn-info btn-lg btn-block"
                 type="submit"
-                [disabled]="
-                  loginForm.get('email')?.errors ||
-                  loginForm.get('password')?.errors
-                "
+                [disabled]="loginForm.invalid"
               >
                 Login
               </button>
@@ -82,6 +79,7 @@
             <div>
               Don't have an account?
               <p
+                role="button"
                 class="cursor-pointer font-weight-bold fit-content-width"
                 (click)="redirectToSignup()"
               >
