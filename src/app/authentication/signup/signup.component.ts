@@ -11,15 +11,24 @@ import { matchPassword } from 'src/app/shared/validator';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  submitted: boolean = false;
-  validationEmailSent: boolean = false;
+  submitted = false;
+  validationEmailSent = false;
+  error = false;
+  formChangesSubscription: Subscription;
   private sub: Subscription;
   constructor(
     private formBuild: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formChangesSubscription = this.signupForm.valueChanges.subscribe(
+      (v) => {
+        this.validationEmailSent = false;
+        this.error = false;
+      }
+    );
+  }
   signupForm: FormGroup = this.formBuild.group(
     {
       email: ['', [Validators.required, Validators.email]],
@@ -47,12 +56,17 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   submit() {
     this.submitted = true;
+    this.error = false;
+    this.validationEmailSent = false;
     if (!this.signupForm.invalid) {
-      this.sub = this.authService
-        .signup(this.signupForm.value)
-        .subscribe((v) => {
+      this.sub = this.authService.signup(this.signupForm.value).subscribe(
+        (v) => {
           this.validationEmailSent = true;
-        });
+        },
+        (err) => {
+          this.error = true;
+        }
+      );
     }
   }
 
