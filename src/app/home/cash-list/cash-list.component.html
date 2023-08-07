@@ -1,6 +1,10 @@
 <div *ngIf="cashs$">
-  <button class="btn-pdf" *ngIf="search.length == 0" (click)="generatePdf()">
-    Gnerate pdf report
+  <button
+    class="btn btn-primary rounded my-2"
+    *ngIf="search.length == 0"
+    (click)="generatePdf()"
+  >
+    Pdf report
   </button>
   <div
     *ngFor="let item of cashs$ | async; trackBy: tracker"

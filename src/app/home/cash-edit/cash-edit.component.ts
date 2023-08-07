@@ -15,6 +15,7 @@ export class CashEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.pipe(select(selectSelectedCash)).subscribe((v) => {
+      console.log('vvv ', v);
       this.currentCash = Object.assign({}, v);
     });
   }

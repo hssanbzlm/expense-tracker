@@ -1,12 +1,14 @@
 <app-navbar></app-navbar>
-<div class="home-container">
-  <div class="search-cash-list-container">
-    <app-total-cash></app-total-cash>
-    <app-search (searchEmitter)="getSearch($event)"></app-search>
+<div class="container">
+  <div class="home-container row">
+    <div class="search-cash-list-container mt-5 col-12 col-lg-8 col-md-12">
+      <app-total-cash></app-total-cash>
+      <app-search (searchEmitter)="getSearch($event)"></app-search>
 
-    <app-cash-list [search]="search"></app-cash-list>
-  </div>
-  <div class="cash-edit-container">
-    <app-cash-edit></app-cash-edit>
+      <app-cash-list [search]="search"></app-cash-list>
+    </div>
+    <div class="cash-edit-container col align-self-center mt-5">
+      <app-cash-edit></app-cash-edit>
+    </div>
   </div>
 </div>

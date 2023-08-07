@@ -1,14 +1,12 @@
 @import '../../styles/mixins';
 
 .cash-container {
-  @include theme;
   display: flex;
   justify-content: space-between;
-  width: 400px;
   height: auto;
   margin-bottom: 5px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 2px;
 
 }
 
@@ -29,17 +27,4 @@
 
 .delete {
   flex-basis: 5%;
-}
-
-@media screen and (max-width:620px) {
-  .cash-container {
-    flex-direction: column;
-  }
-
-}
-
-@media screen and (max-width:390px) {
-  .cash-container {
-    width: auto
-  }
 }

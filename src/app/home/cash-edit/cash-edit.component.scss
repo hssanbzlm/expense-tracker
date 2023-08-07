@@ -1,10 +1,7 @@
-@import '../../styles/mixins';
-
 .cash-edit-form-container {
-  @include theme(radial-gradient(circle farthest-corner at 1.3% 2.8%, rgb(207, 214, 214) 0%, rgba(182, 199, 226, 1) 100.2%));
   max-width: 500px;
   height: 350px;
-  border-radius: 20px;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,18 +15,17 @@
     input[type=text],
     input[type=number] {
       height: 30px;
-      width: 150px;
+      width: auto;
       border: 1px solid lightgrey;
-      border-radius: 30px;
+      border-radius: 4px;
       margin-top: 8px;
       padding: 5px 22px;
-      font-size: 17px;
+      font-size: 14px;
       outline: none;
     }
 
     button {
-      @include btn-theme;
-      height: 20px;
+      height: 30px;
       width: 100px;
     }
 
@@ -40,7 +36,7 @@
       justify-content: space-between;
       align-items: center;
       height: 50px;
-      width: 220px;
+      width: 60%;
     }
 
     .amount-container {
@@ -55,6 +51,8 @@
 
     .cash-in-out-container {
       display: flex;
+      justify-content: flex-start;
+      width: 55%;
     }
 
     .date-container {
