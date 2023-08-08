@@ -32,7 +32,7 @@ export class PdfGeneratorService {
           .item(i)
           .getElementsByTagName('p')
           .item(0)
-          .className.split(' ')[1] == 'cash-in'
+          .className.split(' ')[2] == 'cash-in'
           ? ''
           : '-';
       cashContent[0] =
