@@ -1,8 +1,11 @@
-<div class="search-container">
+<div
+  class="search-container w-auto d-flex justify-content-center align-items-center"
+>
   <input
     (keyup)="sendSearch()"
     type="text"
     placeholder="search remark"
     [(ngModel)]="search"
+    class="rounded"
   />
 </div>

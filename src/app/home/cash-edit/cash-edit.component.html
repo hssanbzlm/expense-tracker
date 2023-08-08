@@ -1,7 +1,11 @@
 <div
-  class="cash-edit-form-container bg-light border border-secondary container"
+  class="cash-edit-form-container rounded d-flex flex-column justify-content-center bg-light border border-secondary container"
 >
-  <form #f="ngForm" (ngSubmit)="saveCash(f)" class="row">
+  <form
+    #f="ngForm"
+    (ngSubmit)="saveCash(f)"
+    class="row d-flex flex-column align-items-center h-auto"
+  >
     <mat-form-field appearance="fill">
       <mat-label class="text-dark">Choose a date</mat-label>
       <input
@@ -49,7 +53,7 @@
         Remark is required and less than 20 characters
       </small>
     </div>
-    <div class="cash-in-out-container">
+    <div class="cash-in-out-container d-flex justify-content-center">
       <div class="d-flex">
         <input
           type="radio"
@@ -69,7 +73,7 @@
         <div for="cash-out" class="mx-1 d-flex align-items-center">Out</div>
       </div>
     </div>
-    <div class="btn-group">
+    <div class="btn-group mt-3">
       <button
         [disabled]="f.invalid"
         type="submit"

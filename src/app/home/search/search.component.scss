@@ -1,17 +1,10 @@
 .search-container {
-  width: auto;
   height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   input[type=text] {
 
     height: 30px;
-    width: auto;
     border: 1px solid lightgrey;
-    border-radius: 4px;
-    margin-top: 12px;
     padding: 5px 22px;
     font-size: 17px;
     outline: none;

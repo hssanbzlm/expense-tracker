@@ -1,15 +1,3 @@
-@import '../../styles/mixins';
-
-.cash-container {
-  display: flex;
-  justify-content: space-between;
-  height: auto;
-  margin-bottom: 5px;
-  cursor: pointer;
-  border-radius: 2px;
-
-}
-
 .cash-in {
   color: green;
 }
@@ -23,12 +11,8 @@
 .currency,
 .balance {
   flex-basis: 20%;
-  margin-bottom: 0;
-  padding-top: 10px;
 }
 
 .delete {
   flex-basis: 5%;
-  color: red;
-  padding-top: 10px
 }
