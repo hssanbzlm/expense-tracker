@@ -12,7 +12,6 @@ export class PdfGeneratorService {
   constructor(private authService: AuthService) {}
 
   print(pdfTemplate: HTMLCollectionOf<Element>) {
-    console.log('pdf generator service');
     this.getCashHistory(pdfTemplate);
     this.setUpDoc();
     autoTable(this.doc, {

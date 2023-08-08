@@ -23,7 +23,6 @@ export class CashEffects {
           map((cashBook: CashBook) => {
             localStorage.setItem('expenses-uname', cashBook.name);
             localStorage.setItem('expenses-ulname', cashBook.lastName);
-            console.log(cashBook.expenses);
             return {
               type: '[Cash] Loaded data',
               cash: cashBook.expenses,
