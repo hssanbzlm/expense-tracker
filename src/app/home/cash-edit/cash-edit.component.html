@@ -1,5 +1,7 @@
-<div class="cash-edit-form-container border border-light bg-light">
-  <form #f="ngForm" (ngSubmit)="saveCash()">
+<div
+  class="cash-edit-form-container bg-light border border-secondary container"
+>
+  <form #f="ngForm" (ngSubmit)="saveCash(f)" class="row">
     <mat-form-field appearance="fill">
       <mat-label class="text-dark">Choose a date</mat-label>
       <input
@@ -41,21 +43,21 @@
         #remark="ngModel"
       />
       <small
-        *ngIf="remark.invalid && (remark.touched || remark.dirty)"
+        *ngIf="(remark.invalid || remark.value?.length > 20) && remark.dirty"
         class="text-danger"
       >
-        Remark is required
+        Remark is required and less than 20 characters
       </small>
     </div>
     <div class="cash-in-out-container">
-      <div>
+      <div class="d-flex">
         <input
           type="radio"
           name="in"
           [value]="1"
           [(ngModel)]="currentCash.in"
         />
-        <label for="chash-in" class="mx-1"> In </label>
+        <div for="chash-in" class="mx-1 d-flex align-items-center">In</div>
       </div>
       <div class="d-flex">
         <input
@@ -64,7 +66,7 @@
           [value]="-1"
           [(ngModel)]="currentCash.in"
         />
-        <div for="cash-out" class="mx-1 text-center">Out</div>
+        <div for="cash-out" class="mx-1 d-flex align-items-center">Out</div>
       </div>
     </div>
     <div class="btn-group">

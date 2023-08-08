@@ -16,15 +16,18 @@
 }
 
 .modal {
-  @include theme;
   width: 300px;
   height: auto;
-  border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
 
   .btn-group {
     display: flex;
@@ -32,10 +35,6 @@
     align-items: center;
     height: 50px;
     width: 140px;
-
-    button {
-      @include btn-theme;
-    }
 
   }
 }

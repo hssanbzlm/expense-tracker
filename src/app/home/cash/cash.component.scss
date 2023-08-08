@@ -23,8 +23,12 @@
 .currency,
 .balance {
   flex-basis: 20%;
+  margin-bottom: 0;
+  padding-top: 10px;
 }
 
 .delete {
   flex-basis: 5%;
+  color: red;
+  padding-top: 10px
 }

@@ -13,8 +13,8 @@ import { loadCash } from 'src/app/store/cash/cash.action';
   templateUrl: './cash-list.component.html',
   styleUrls: ['./cash-list.component.scss'],
 })
-export class CashListComponent implements OnInit, OnDestroy {
-  cashs$: Observable<Cash[]>;
+export class CashListComponent implements OnDestroy {
+  @Input() cashs$: Observable<Cash[]>;
   @Input() search: string;
 
   constructor(
@@ -23,15 +23,6 @@ export class CashListComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     @Inject(DOCUMENT) private doc: Document
   ) {}
-
-  ngOnInit(): void {
-    this.getCash();
-    this.cashs$ = this.store.pipe(select(selectCash));
-  }
-
-  getCash() {
-    this.store.dispatch(loadCash());
-  }
 
   tracker(index, cash: Cash) {
     return cash._id;

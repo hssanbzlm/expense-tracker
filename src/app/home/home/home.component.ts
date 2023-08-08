@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Cash } from 'src/app/shared/Interfaces/Cash';
+import { AppState, selectCash } from 'src/app/store';
+import { loadCash } from 'src/app/store/cash/cash.action';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +11,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  cash$: Observable<Cash[]>;
+  constructor(private store: Store<AppState>) {}
   search: string = '';
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    this.getCash();
+    this.cash$ = this.store.pipe(select(selectCash));
+  }
+  getCash() {
+    this.store.dispatch(loadCash());
+  }
   getSearch(search) {
     this.search = search;
   }

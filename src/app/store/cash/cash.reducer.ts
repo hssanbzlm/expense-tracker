@@ -68,7 +68,7 @@ export function getSelectedCash(state: CashState): Cash {
         {},
         state.cash.find((cash) => cash._id == state.selectedCash)
       )
-    : { date: null, remark: '', in: 1, amount: 0 };
+    : { date: new Date(), remark: '', in: 1, amount: 1 };
 }
 
 export function totalInOutCash(state: CashState): TotalInOut {

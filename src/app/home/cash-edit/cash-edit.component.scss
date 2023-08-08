@@ -1,5 +1,5 @@
 .cash-edit-form-container {
-  max-width: 500px;
+  max-width: 400px;
   height: 350px;
   border-radius: 5px;
   display: flex;
@@ -18,7 +18,6 @@
       width: auto;
       border: 1px solid lightgrey;
       border-radius: 4px;
-      margin-top: 8px;
       padding: 5px 22px;
       font-size: 14px;
       outline: none;
@@ -36,23 +35,25 @@
       justify-content: space-between;
       align-items: center;
       height: 50px;
-      width: 60%;
+      width: 50%;
     }
 
     .amount-container {
       display: flex;
       flex-direction: column;
+      width: 200px
     }
 
     .remark-container {
       display: flex;
       flex-direction: column;
+      width: 200px
     }
 
     .cash-in-out-container {
       display: flex;
-      justify-content: flex-start;
-      width: 55%;
+      justify-content: center;
+      width: 70%;
     }
 
     .date-container {

@@ -3,11 +3,17 @@
   <div class="home-container row">
     <div class="search-cash-list-container mt-5 col-12 col-lg-8 col-md-12">
       <app-total-cash></app-total-cash>
-      <app-search (searchEmitter)="getSearch($event)"></app-search>
+      <div *ngIf="cash$ | async as cash">
+        <app-search
+          (searchEmitter)="getSearch($event)"
+          *ngIf="cash.length; else message"
+        ></app-search>
+        <ng-template #message>You do not have any expenses yet.</ng-template>
+      </div>
 
-      <app-cash-list [search]="search"></app-cash-list>
+      <app-cash-list [search]="search" [cashs$]="cash$"></app-cash-list>
     </div>
-    <div class="cash-edit-container col align-self-center mt-5">
+    <div class="cash-edit-container col mt-5">
       <app-cash-edit></app-cash-edit>
     </div>
   </div>

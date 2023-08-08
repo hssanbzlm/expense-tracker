@@ -1,15 +1,17 @@
-<div *ngIf="cashs$">
-  <button
-    class="btn btn-primary rounded my-2"
-    *ngIf="search.length == 0"
-    (click)="generatePdf()"
-  >
-    Pdf report
-  </button>
-  <div
-    *ngFor="let item of cashs$ | async; trackBy: tracker"
-    class="cash-list-container"
-  >
-    <app-cash [search]="search" [cash]="item"></app-cash>
+<div *ngIf="cashs$ | async as cash">
+  <div *ngIf="cash.length">
+    <button
+      class="btn btn-primary rounded my-2"
+      *ngIf="search.length == 0"
+      (click)="generatePdf()"
+    >
+      Pdf report
+    </button>
+    <div
+      *ngFor="let item of cashs$ | async; trackBy: tracker"
+      class="cash-list-container"
+    >
+      <app-cash [search]="search" [cash]="item"></app-cash>
+    </div>
   </div>
 </div>

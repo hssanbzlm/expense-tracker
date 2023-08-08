@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Cash } from 'src/app/shared/Interfaces/Cash';
 import { AppState, selectSelectedCash } from 'src/app/store';
@@ -15,14 +16,14 @@ export class CashEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.pipe(select(selectSelectedCash)).subscribe((v) => {
-      console.log('vvv ', v);
       this.currentCash = Object.assign({}, v);
     });
   }
-  saveCash() {
+  saveCash(f: NgForm) {
     if (this.currentCash._id) {
       this.store.dispatch(updateCash({ cash: this.currentCash }));
     } else this.store.dispatch(addCash({ cash: this.currentCash }));
+    f.reset(this.currentCash);
   }
 
   resetCash() {
