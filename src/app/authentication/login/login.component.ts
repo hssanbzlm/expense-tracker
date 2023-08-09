@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           },
           (err) => {
             this.error = true;
-            this.submitted = false;
           }
         );
     }
