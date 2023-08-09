@@ -63,9 +63,9 @@ export class PdfGeneratorService {
       30
     );
     this.doc.setProperties({
-      title: `cash book history of ${localStorage.getItem(
-        'expenses-uname'
-      )} ${localStorage.getItem('expenses-ulname')}`,
+      title: `${localStorage.getItem('expenses-uname')} ${localStorage.getItem(
+        'expenses-ulname'
+      )} cash book history`,
     });
   }
 }
