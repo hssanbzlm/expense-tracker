@@ -47,7 +47,7 @@
         #remark="ngModel"
       />
       <small
-        *ngIf="(remark.invalid || remark.value?.length > 20) && remark.dirty"
+        *ngIf="(remark.invalid || remark.value?.length > 20) && remark.touched"
         class="text-danger"
       >
         Remark is required and less than 20 characters
@@ -75,7 +75,7 @@
     </div>
     <div class="btn-group mt-3">
       <button
-        [disabled]="f.invalid"
+        [disabled]="f.invalid || remark.value?.length > 20"
         type="submit"
         class="btn btn-outline-primary mx-1 px-0 py-0 rounded"
       >

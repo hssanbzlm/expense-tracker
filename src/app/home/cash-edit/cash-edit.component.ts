@@ -16,6 +16,7 @@ export class CashEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.pipe(select(selectSelectedCash)).subscribe((v) => {
+      console.log('hello');
       this.currentCash = Object.assign({}, v);
     });
   }
@@ -23,7 +24,7 @@ export class CashEditComponent implements OnInit {
     if (this.currentCash._id) {
       this.store.dispatch(updateCash({ cash: this.currentCash }));
     } else this.store.dispatch(addCash({ cash: this.currentCash }));
-    f.reset(this.currentCash);
+    f.form.markAsUntouched();
   }
 
   resetCash() {
