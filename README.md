@@ -1,27 +1,45 @@
 # ExpenseTracker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.3.
+![image](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![image](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![image](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
+![image](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+![image](https://img.shields.io/badge/json%20web%20tokens-323330?style=for-the-badge&logo=json-web-tokens&logoColor=pink)
+![image](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+# Expense tracker
 
-## Development server
+This is an expense management application built with Angular and Node.js (this is the front-end repo). This application is designed to provide users with a powerful yet user-friendly tool to track, manage, and gain insights into their expenses. Let me take you on a journey through its key features.
+At its core, my expense management application empowers users to take control of their finances. Whether it's tracking daily expenses, managing budgets, or generating expense summaries, this application offers a comprehensive solution that simplifies the financial management process.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+### Expense tracking: 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Users can effortlessly add, remove, and update their expenses. The intuitive interface ensures that recording expenses is a seamless experience.
 
-## Build
+### PDF expense summary:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+One of the standout features of this application is the ability to generate a comprehensive PDF summary of expenses. This summary provides users with a clear visual representation of their financial activities.
 
-## Running unit tests
+### User registration and activation:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Users can create accounts using their email addresses. An activation email is sent to ensure a secure and authenticated experience. Once the link sent is clicked, user is activated and ready to use our application
 
-## Running end-to-end tests
+### Forgot password recovery:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+In case users forget their passwords, the application provides a hassle-free password recovery system. Users receive a password reset code via email.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Screenshots 
+
+### Login page
+![login](https://github.com/hssanbzlm/expense-tracker/assets/48295114/12aaf2d6-d1bb-4c8b-8ea2-20f5e7ad5002)
+
+### Signup page 
+![signup](https://github.com/hssanbzlm/expense-tracker/assets/48295114/db0150bb-59eb-476d-83ba-4e7cf8d949a9)
+
+### Home page 
+![home](https://github.com/hssanbzlm/expense-tracker/assets/48295114/0418bc80-7f31-475a-a8c2-6ef8d805567a)
+
+### Cash book history PDF
+![cash book history](https://github.com/hssanbzlm/expense-tracker/assets/48295114/90b44c0e-2319-44e7-8d33-aca5cd045018)
