@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscriber, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   formChangesSubscription: Subscription;
   private sub: Subscription;
   constructor(
-    private formBuild: FormBuilder,
+    private formBuild: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router
   ) {}
@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       }
     );
   }
-  signupForm: FormGroup = this.formBuild.group(
+  signupForm: UntypedFormGroup = this.formBuild.group(
     {
       email: ['', [Validators.required, Validators.email]],
       name: [

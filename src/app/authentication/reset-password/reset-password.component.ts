@@ -1,5 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { ResetPasswordService } from 'src/app/shared/services/reset-password.service';
@@ -23,13 +27,13 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   inEmailForm: boolean = true;
   inCodeForm: boolean = false;
   inPasswordForm: boolean = false;
-  emailFormGroup: FormGroup;
-  codeFormGroup: FormGroup;
-  passwordFormGroup: FormGroup;
+  emailFormGroup: UntypedFormGroup;
+  codeFormGroup: UntypedFormGroup;
+  passwordFormGroup: UntypedFormGroup;
   submit: boolean = false;
   errorMsg: string = '';
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private resetPasswordService: ResetPasswordService
   ) {}
