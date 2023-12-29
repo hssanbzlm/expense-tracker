@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'verifemail/:codeverif', component: VerifemailComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
-  { path: '', redirectTo: 'login' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({
