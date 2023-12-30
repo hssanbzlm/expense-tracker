@@ -2,7 +2,7 @@
   "name": "expense-tracker",
   "version": "0.0.0",
   "engines": {
-    "node": "18.13.0"
+    "node": "18.x"
   },
   "scripts": {
     "ng": "ng",
