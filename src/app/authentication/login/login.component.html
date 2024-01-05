@@ -51,10 +51,16 @@
                   >Password is required</small
                 >
               </div>
-              <div class="error-container" *ngIf="submitted && error">
-                <small class="text-danger"
-                  >The password you’ve entered is incorrect</small
-                >
+              <div
+                class="error-container"
+                *ngIf="
+                  submitted &&
+                  error &&
+                  loginForm.get('password')?.pristine &&
+                  loginForm.get('email')?.pristine
+                "
+              >
+                <small class="text-danger">Please check your credentials</small>
               </div>
             </div>
 
