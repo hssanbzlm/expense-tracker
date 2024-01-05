@@ -1,5 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Token } from 'src/app/shared/Interfaces/Token';
@@ -14,7 +18,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
   error: boolean = false;
   signInSubscription: Subscription;
-  formChangesSubscription: Subscription;
   constructor(
     private formBuilder: UntypedFormBuilder,
     private authService: AuthService,
@@ -24,18 +27,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
-  ngOnInit(): void {
-    this.formChangesSubscription = this.loginForm.valueChanges.subscribe(
-      (val) => {
-        this.error = false;
-        this.submitted = false;
-      }
-    );
-  }
+  ngOnInit(): void {}
 
   submit() {
     this.submitted = true;
     this.error = false;
+    this.loginForm.disable();
+    this.loginForm.markAsPristine();
     if (!this.loginForm.invalid) {
       this.signInSubscription = this.authService
         .signin(this.loginForm.value)
@@ -46,6 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           },
           (err) => {
             this.error = true;
+            this.loginForm.enable();
           }
         );
     }
@@ -59,9 +58,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.signInSubscription) {
       this.signInSubscription.unsubscribe();
-    }
-    if (this.formChangesSubscription) {
-      this.formChangesSubscription.unsubscribe();
     }
   }
 }
