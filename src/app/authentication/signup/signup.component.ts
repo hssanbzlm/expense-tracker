@@ -62,6 +62,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.submitted = true;
     this.error = false;
     this.validationEmailSent = false;
+    this.signupForm.disable();
     if (!this.signupForm.invalid) {
       this.sub = this.authService.signup(this.signupForm.value).subscribe(
         (v) => {
@@ -69,6 +70,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         },
         (err) => {
           this.error = true;
+          this.signupForm.enable();
         }
       );
     }
