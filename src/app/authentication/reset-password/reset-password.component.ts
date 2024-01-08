@@ -120,6 +120,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   backToEmailForm() {
     this.inCodeForm = false;
     this.inEmailForm = true;
+    this.errorMsg = '';
   }
 
   ngOnDestroy() {}
