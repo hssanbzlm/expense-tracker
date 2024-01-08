@@ -67,6 +67,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
             this.inEmailForm = false;
             this.inCodeForm = true;
             this.submit = false;
+            this.errorMsg = '';
           },
           (err) => {
             this.submit = false;
@@ -89,6 +90,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
             this.inCodeForm = false;
             this.inPasswordForm = true;
             this.submit = false;
+            this.errorMsg = '';
           },
           (err) => {
             this.submit = false;
@@ -116,10 +118,12 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   backToCodeForm() {
     this.inPasswordForm = false;
     this.inCodeForm = true;
+    this.errorMsg = '';
   }
   backToEmailForm() {
     this.inCodeForm = false;
     this.inEmailForm = true;
+    this.errorMsg = '';
   }
 
   ngOnDestroy() {}
