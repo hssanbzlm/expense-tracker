@@ -1,0 +1,27 @@
+<div
+  class="w-100 h-100 d-flex justify-content-center align-items-center flex-column"
+>
+  <form
+    [formGroup]="emailFormGroup"
+    (ngSubmit)="onSumbitEmailForm()"
+    class="p-1"
+  >
+    <input
+      (focus)="onInputFocus()"
+      [disabled]="submit"
+      formControlName="email"
+      type="text"
+      placeholder="email"
+      [ngClass]="emailFormGroup.get('email').errors ? 'error' : 'success'"
+      class="col-12 col-sm-auto rounded ps-1"
+    />
+    <button
+      class="btn btn-light mt-2 mt-sm-0 ms-0 ms-sm-2"
+      [disabled]="submit || emailFormGroup.invalid"
+      type="submit"
+    >
+      Send
+    </button>
+    <div *ngIf="errorMsg.length">{{ errorMsg }}</div>
+  </form>
+</div>
