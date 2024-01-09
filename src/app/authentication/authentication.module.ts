@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { VerifemailComponent } from './verifemail/verifemail.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { EmailFormComponent } from './reset-password/email-form/email-form.component';
+import { CodeFormComponent } from './reset-password/code-form/code-form.component';
+import { PasswordFormComponent } from './reset-password/password-form/password-form.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     SignupComponent,
     VerifemailComponent,
     ResetPasswordComponent,
+    EmailFormComponent,
+    CodeFormComponent,
+    PasswordFormComponent,
   ],
   imports: [
     CommonModule,

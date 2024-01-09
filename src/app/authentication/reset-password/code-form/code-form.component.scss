@@ -1,0 +1,12 @@
+input {
+  height: 35px;
+  outline: none;
+}
+
+button {
+  height: 35px;
+
+  &:disabled {
+    color: gray;
+  }
+}

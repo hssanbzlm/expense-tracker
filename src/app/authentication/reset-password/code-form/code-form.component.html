@@ -1,0 +1,38 @@
+<div
+  class="w-100 h-100 d-flex justify-content-center align-items-start flex-column"
+>
+  <div class="container ms-3 ms-sm-0">
+    <form
+      [formGroup]="codeFormGroup"
+      (ngSubmit)="onSubmitCodeForm()"
+      class="row justify-content-sm-center justify-content-start"
+    >
+      <input
+        [disabled]="submit"
+        formControlName="code"
+        type="number"
+        placeholder="code"
+        (focus)="onInputFocus()"
+        [ngClass]="codeFormGroup.get('code').errors ? 'error' : 'success'"
+        class="col-8 col-sm-auto rounded ps-1"
+      />
+      <div class="btn-group mt-2 mt-sm-0 ms-0 p-0 ms-sm-2 col-6 col-sm-auto">
+        <button
+          [disabled]="submit || codeFormGroup.invalid"
+          type="submit"
+          class="btn btn-primary me-2 text-white rounded"
+        >
+          Confirm
+        </button>
+        <button (click)="backToEmailForm()" class="btn btn-secondary rounded">
+          Back
+        </button>
+      </div>
+      <div class="row justify-content-sm-center justify-content-start">
+        <div *ngIf="errorMsg.length" class="text-danger w-25 mt-2 p-0">
+          {{ errorMsg }}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

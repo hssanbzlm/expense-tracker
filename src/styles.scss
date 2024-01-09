@@ -10,5 +10,17 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.success {
+  border-bottom: green 3px solid;
+
+}
+
+.error {
+  border-bottom: red 3px solid;
+}
+
+
+
+
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
